@@ -1,0 +1,34 @@
+{
+  "sheet_name": "MyBot – Record",
+  "rules": [
+    "Written for a human to read first.",
+    "Row 1: a short plain note. Row 2: headers. Both frozen.",
+    "Editable columns shaded; set column widths; filter on the data tab.",
+    "Dates like 28 Sep 2026. No record-ID codes, no 'source rows', no backup tabs, no private file paths.",
+    "Unknown values stay blank or 'Not recorded'."
+  ],
+  "tabs": [
+    {
+      "name": "Summary",
+      "note": "Your summary. Pick a period in the blue box and every number below updates. Nothing here needs editing.",
+      "period_dropdown": {"cell": "B3", "values_from": "Items!Period"},
+      "columns": [
+        {"header": "Item", "width": 220},
+        {"header": "Value", "width": 160},
+        {"header": "Notes", "width": 320}
+      ]
+    },
+    {
+      "name": "Items",
+      "note": "One line per item. Blue columns are yours to edit. Use the filter on Period to see one period.",
+      "filter": true,
+      "columns": [
+        {"header": "Date", "width": 110, "format": "d mmm yyyy", "editable": true},
+        {"header": "Period", "width": 90, "editable": false},
+        {"header": "<Item>", "width": 220, "editable": true},
+        {"header": "<Detail>", "width": 260, "editable": true},
+        {"header": "Status", "width": 120, "editable": true, "dropdown": ["<only statuses the user can give>"]}
+      ]
+    }
+  ]
+}

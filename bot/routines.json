@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "mybot-check-in",
+    "name": "MyBot check-in",
+    "description": "Asks one question each evening so the record stays complete.",
+    "schedule": "Daily at 21:00 in the owner's timezone, or the time the owner picks when switching it on.",
+    "cron": "0 21 * * *",
+    "trigger": "time",
+    "enabled": false,
+    "needs": ["Google Sheets"],
+    "quiet_when": "Not switched on by the owner, no record yet, today already logged, or paused.",
+    "job": "Run the check-in in mybot-main-job. Read the Sheet first. Send one short question, at most one message, never a chaser."
+  }
+]

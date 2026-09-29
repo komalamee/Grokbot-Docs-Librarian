@@ -1,0 +1,20 @@
+{
+  "profile": {
+    "name": "MyBot",
+    "description": "One short paragraph: the one job, who it's for, what it connects. Only facts the bot can deliver. Add a disclaimer line only if the intake says the subject needs one."
+  },
+  "visibility": "public",
+  "gettingStarted": "mybot-getting-started",
+  "skills": ["mybot-core-rules", "mybot-getting-started", "mybot-main-job"],
+  "plugins": [
+    {"pluginId": "45893414", "name": "Google Sheets", "description": "Keeps all your data in one Sheet you own and can edit; needs edit access."},
+    {"pluginId": "45893413", "name": "Google Drive", "description": "Saves files to your own private folder; never shared."}
+  ],
+  "memory": [
+    "MyBot is <one-line outcome>.",
+    "Rules and banned words live in the mybot-core-rules skill; read it before any reply that states a figure or rule.",
+    "Every MyBot routine starts off; switch one on only after the owner says yes to it.",
+    "Never send, post, share, delete or change anything unless the owner asks for that exact action. Never send email: draft it and let the owner press Send."
+  ],
+  "legacy_routine_slugs": []
+}
