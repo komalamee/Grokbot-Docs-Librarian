@@ -1,9 +1,8 @@
 # docs
 
-| File | From | When |
+This repository is public and holds the bot's own files. The working notes behind the bot — the intake conversation and the build plan — are kept privately by the owner and are not in this repo.
+
+| File | What | When |
 |---|---|---|
-| `INTAKE.md` | `../../templates/INTAKE.md` | Gate ②, confirmed by Koko before the spec |
-| `SPEC.md` | `../../templates/SPEC.md` | Gate ③, filled from `INTAKE.md`; Koko approves it |
-| `RETEST.md` | `../../templates/RETEST.md` | Gate ⑤, after every change round |
-| `COMPARE-v<prev>-v<new>.md` | `../../templates/COMPARE.md` | Before any republish |
-| `WEBSITE-HANDOFF.md` | this folder | Gate ⑨, for Hermes via Koko (Nomad Pro goes to Chief) |
+| `WEBSITE-HANDOFF.md` | Page copy for the bot's web page | Written once the listing is final |
+| `RETEST.md` | Pass or fail per test case, with the evidence in `../proof/` | After every round of changes, before a release |
