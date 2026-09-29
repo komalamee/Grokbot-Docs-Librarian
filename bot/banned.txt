@@ -1,3 +1,11 @@
 # One regex per line (case-insensitive). Per-bot words; the generic list is built into banned_scan.py.
 # Mirror of the list inside <!-- banned-list --> markers in docs-librarian-core-rules.
-# PLACEHOLDER: no Docs Librarian words agreed yet. The generic list applies until the core-rules skill is written.
+# These come from SPEC section 11: retrieve what a document says, never advise, never push.
+\bI recommend\b
+\bI'd advise\b
+\bmy advice\b
+\byou should\b
+\byou must\b
+\bthe best option\b
+\bthe best policy\b
+\bthe cheapest option\b
