@@ -1,6 +1,6 @@
 # Listing: Docs Librarian
 
-**DRAFT: the wording still needs the owner's approval.** Nothing here is final, and nothing goes to the marketplace until the bot has been tested and the owner has said yes (gates ⑤–⑧).
+**DRAFT: the wording still needs the owner's approval.** Nothing here is final, and nothing goes to the marketplace until the bot has been tested and the owner has said yes.
 
 ## Name
 Docs Librarian   (one spelling everywhere)
@@ -24,7 +24,7 @@ Anyone who would rather not file things away but wants them filed, organised, an
 ## What it connects to
 Gmail (read access) to find your documents and spot new sign-ups, and to draft emails that only you send. Google Sheets (edit access) for the index. Google Drive (edit access) if you keep your files in the cloud. Google Calendar (edit access) only if you want renewal dates added. Each is offered when it's needed.
 
-## Try saying   (templates can't carry example prompts: also give these to Brandy P)
+## Try saying   (a bot template can't carry example prompts, so these also go to whoever writes the launch posts)
 1. "Am I covered for car hire excess in Portugal?"
 2. "Talk me through exactly what car rental insurance I've got across all my credit cards."
 3. "What do I need to know about my travel insurance policy?"

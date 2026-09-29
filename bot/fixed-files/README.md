@@ -1,7 +1,6 @@
 # Fixed files
 
-Files the bot needs on the user's side, shipped from this repo and installed on import (Koko, 29 Sep 2026).
-Examples from the Docs Librarian spec: the folder set (policies, receipts/payments, deadlines) and the index Sheet layout, so every install builds the same Sheet.
+Files the bot needs on the user's side, shipped from this repo and installed at setup: the folder set (policies, receipts and payments, deadlines) and the index Sheet layout, so every install builds the same Sheet.
 
 ## Rules
 - List every file in `MANIFEST.md`: what it is, where it goes, which skill installs it, when.

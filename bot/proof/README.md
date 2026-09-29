@@ -1,6 +1,6 @@
 # proof
 
-Concrete evidence for each release. No release without it (Koko, 29 Sep 2026). Fake data only; no real names, emails or places from anyone's own data.
+Concrete evidence for each release. No release without it. Fake data only; no real names, emails or places from anyone's own data.
 
 | Folder | What goes in it |
 |---|---|
