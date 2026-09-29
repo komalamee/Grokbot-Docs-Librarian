@@ -1,4 +1,4 @@
 # Exact substrings allowed through build.py's private-data scan. Keep this short and public-safe.
 # This bot's monthly routine slug is 33 characters, so build.py's "token-like string" pattern
-# ([A-Za-z0-9_-]{32,}) reads it as a secret. It is a public slug from SPEC section 9. See ../TEMPLATE-FEEDBACK.md.
+# ([A-Za-z0-9_-]{32,}) reads it as a secret. It is a public routine slug, not a token.
 docs-librarian-monthly-look-ahead

@@ -1,6 +1,6 @@
 # One regex per line (case-insensitive). Per-bot words; the generic list is built into banned_scan.py.
 # Mirror of the list inside <!-- banned-list --> markers in docs-librarian-core-rules.
-# These come from SPEC section 11: retrieve what a document says, never advise, never push.
+# The bot retrieves what a document says: it never advises and never pushes. The owner has agreed this list.
 \bI recommend\b
 \bI'd advise\b
 \bmy advice\b

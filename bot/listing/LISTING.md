@@ -1,6 +1,6 @@
 # Listing: Docs Librarian
 
-**DRAFT for the owner's approval.** Written from `../docs/SPEC.md` only. Nothing here is final, and nothing goes to the marketplace until the bot has been tested and Koko has said yes (gates ⑤–⑧).
+**DRAFT: the wording still needs the owner's approval.** Nothing here is final, and nothing goes to the marketplace until the bot has been tested and the owner has said yes (gates ⑤–⑧).
 
 ## Name
 Docs Librarian   (one spelling everywhere)
@@ -33,5 +33,5 @@ Gmail (read access) to find your documents and spot new sign-ups, and to draft e
 ## Made by
 Komal Amin
 
-<!-- No disclaimer: the intake agreed none (SPEC §11). -->
+<!-- No disclaimer: this bot carries none anywhere. Don't add one. -->
 <!-- Check before publishing: every line maps to a behaviour tested in proof/. No embellishment, no invented detail, no prices, install counts, testimonials or outcome promises. -->
