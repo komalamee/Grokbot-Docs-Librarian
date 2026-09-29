@@ -1,0 +1,46 @@
+{
+  "file": "index-sheet-layout.json",
+  "version": "0.1",
+  "what": "Layout of the Docs Librarian index Sheet. Fetched at setup by docs-librarian-getting-started so every install builds the same Sheet.",
+  "sheet_name": "Docs Librarian – Index",
+  "rules": [
+    "Written for a person to read first.",
+    "Row 1 is the headers and stays frozen. One row per document.",
+    "Dates read as 12 Nov 2026.",
+    "No ID codes, no row numbers, no backup tabs.",
+    "Anything the document does not give stays blank or 'Not recorded'.",
+    "The owner's own edits win."
+  ],
+  "date_format": "d mmm yyyy",
+  "tabs": [
+    {
+      "name": "Documents",
+      "note": "One row per document in your library.",
+      "freeze_rows": 1,
+      "filter": true,
+      "columns": [
+        {"header": "Name", "width": 260, "what": "What the document is called"},
+        {"header": "Type", "width": 150, "what": "Card policy, insurance, contract, tenancy, utility, subscription, other"},
+        {"header": "Provider", "width": 180, "what": "Who issued it"},
+        {"header": "Start date", "width": 120, "format": "d mmm yyyy"},
+        {"header": "Renewal date", "width": 130, "format": "d mmm yyyy"},
+        {"header": "Provider contact", "width": 240, "what": "How to reach them about the policy, a cancellation or a refund"},
+        {"header": "File link", "width": 240, "what": "Where the file is kept"}
+      ]
+    },
+    {
+      "name": "Renewals",
+      "note": "What is coming up, soonest first.",
+      "freeze_rows": 1,
+      "sort": {"column": "Renewal date", "order": "ascending"},
+      "columns": [
+        {"header": "Document", "width": 260},
+        {"header": "Provider", "width": 180},
+        {"header": "Renewal date", "width": 130, "format": "d mmm yyyy"},
+        {"header": "Days left", "width": 100, "what": "Counted from today, refreshed on every read or write"},
+        {"header": "Provider contact", "width": 240},
+        {"header": "File link", "width": 240}
+      ]
+    }
+  ]
+}
