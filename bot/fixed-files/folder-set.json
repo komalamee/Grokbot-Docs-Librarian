@@ -1,0 +1,17 @@
+{
+  "file": "folder-set.json",
+  "version": "0.1",
+  "what": "The folder set Docs Librarian creates during setup, in the storage the owner picks at message 1. Fetched at setup by docs-librarian-getting-started.",
+  "root_folder": "Docs Librarian",
+  "folders": [
+    {"name": "Policies", "what": "Policies and contracts themselves"},
+    {"name": "Receipts and payments", "what": "Receipts and payment records for each provider"},
+    {"name": "Deadlines", "what": "Renewal and expiry dates, and anything tied to them"}
+  ],
+  "rules": [
+    "Ask the owner before creating anything.",
+    "Never overwrite or rename a folder that is already there; ask first.",
+    "Files stay in the owner's own storage. The index only holds the details and the link.",
+    "Say in one line what was created and where."
+  ]
+}
