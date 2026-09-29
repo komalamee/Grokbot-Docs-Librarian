@@ -42,7 +42,11 @@ A find-and-replace of `mybot` / `MyBot` still leaves `<Bot name>`, `<bot>`, `<on
 The template assumes the repo is made and the bot built in one go, so there is no guidance on what a set-up-only repo should contain: what a placeholder skill looks like, whether `listing/`, `fixed-files/` and `docs/WEBSITE-HANDOFF.md` get filled or left blank, and whether a pre-release `args/create_bot_share_json.args.json` should be committed (`.gitignore` only excludes `*.FAILED.json`, and `REPO-STANDARD.md` says "committed per release"). Marked every unwritten file `PLACEHOLDER` here and committed the setup-only args, labelled as such in `bot/CHANGELOG.md`.
 **Suggested fix:** a short "repo set up, skills not written yet" state in `PLAYBOOK.md` gate ③, with a placeholder skill skeleton.
 
-## 10. Small things
+## 10. The template's open point on fixed files now has a worked answer, and it contradicts another rule
+`REPO-STANDARD.md` and `fixed-files/README.md` both leave open how a fixed file reaches a user, since an installed bot can't read a private repo. Docs Librarian answers it by making the repo public and fetching the two small JSON files from `raw.githubusercontent.com` on `main`. That works, but `REPO-STANDARD.md` also says installs should pin **tagged releases with a checksum** and "never auto-pull `main`" (lesson N6), which is the opposite of what fetching from `main` does. Two rules, no way to follow both.
+**Suggested fix:** close the open point with the public-repo pattern written out, and say plainly which files may track `main` (small, generic, layout-only) and which have to be pinned to a tag with a checksum (anything executable). A public bot repo also needs a line about what may live in it: this repo's `docs/INTAKE.md` and `docs/SPEC.md` are now world-readable, which `REPO-STANDARD.md` ("public repos hold code only, no notes or drafts") would not allow.
+
+## 11. Small things
 - `bot-skeleton/fixed-files/README.md` uses Docs Librarian as its worked example, so that text now travels into every other bot's repo. Move the example into the master template's docs, or make it generic.
 - `bot-skeleton/fixed-files/MANIFEST.md` still points its example row at `mybot-getting-started`, which a `mybot` rename silently turns into a row the bot may not have.
 - README step 1 asks for `grokbot-<bot>` (`grokbot-docs-librarian`); this repo is `Grokbot-Docs-Librarian`. Worth saying whether the exact spelling matters.

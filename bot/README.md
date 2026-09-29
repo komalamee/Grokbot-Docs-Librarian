@@ -1,15 +1,15 @@
 # Docs Librarian (Grok Bot template)
 
-A library for your contracts, policies and any long document you might need to look back at · Live link: not published yet · Current version: none (setup only; skills are placeholders)
+A library for your contracts, policies and any long document you might need to look back at · Live link: not published yet · Current version: none (built from the spec, not tested yet)
 
 | Folder / file | What |
 |---|---|
 | `bot.json` | Profile, connections (`pluginId` strings), memories, getting-started skill |
 | `routines.json` | The one source for routines. Every routine `"enabled": false` |
-| `skills/` | `docs-librarian-getting-started`, `docs-librarian-core-rules`, `docs-librarian-library`, `docs-librarian-renewals` — all **placeholders** until gate ④ |
-| `fixed-files/` | Files that install on the user's side on import, listed in `MANIFEST.md` (drafts, not built yet) |
+| `skills/` | `docs-librarian-getting-started`, `docs-librarian-core-rules`, `docs-librarian-library`, `docs-librarian-renewals`, all written from `docs/SPEC.md` |
+| `fixed-files/` | The index Sheet layout and the folder set, fetched at setup from this public repo (raw URLs on `main`); listed in `MANIFEST.md` |
 | `docs/` | `INTAKE.md`, `SPEC.md` (both approved, unchanged), `RETEST.md` later, website handoff |
-| `listing/` | Marketplace listing copy and images (written at gate ⑥) |
+| `listing/` | Marketplace listing copy and images (a draft for the owner to approve; finalised at gate ⑥) |
 | `proof/` | Screenshots and test-run evidence for each release (empty; nothing tested yet) |
 | `samples/` | Fake data only: Sheet mock-ups, sample files |
 | `args/` | Generated share args (by `build.py`; never hand-edited) |

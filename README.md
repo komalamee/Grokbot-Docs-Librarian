@@ -2,9 +2,9 @@
 
 **Docs Librarian** — a library for your contracts, policies and any long document you might need to look back at. It files them straight from your email, keeps them organised, tracks your renewals, and gives you an instant answer to anything you ask about them.
 
-Live link: not published yet · Current version: none · Status: gate ③ (spec approved), repo set up, skills not written yet.
+Live link: not published yet · Current version: none · Status: gate ④ (skills, routines and fixed files written from the spec; not tested yet).
 
-Private repo, made from `grokbot-template` v0.1 (see `CHANGELOG.md` and `LEARNINGS.md`, which travel with the bot and record the rules it was built under).
+Public repo, made from `grokbot-template` v0.1 (see `CHANGELOG.md` and `LEARNINGS.md`, which travel with the bot and record the rules it was built under).
 
 | Folder / file | What |
 |---|---|
@@ -18,7 +18,8 @@ Private repo, made from `grokbot-template` v0.1 (see `CHANGELOG.md` and `LEARNIN
 - Approved intake and spec: `bot/docs/INTAKE.md`, `bot/docs/SPEC.md` (unchanged wording; approved first messages and example chats are in SPEC Appendix A).
 - The three routines, all switched off: `bot/routines.json`.
 - Profile, connections and memories: `bot/bot.json`.
-- Skills: `bot/skills/` — four **placeholders**. No bot behaviour is written yet; that happens at gate ④ of `playbook/PLAYBOOK.md`.
+- Skills: `bot/skills/` — `docs-librarian-getting-started`, `-core-rules`, `-library` and `-renewals`, all written from the spec.
+- Fixed files: `bot/fixed-files/` — the index Sheet layout and the folder set, fetched at setup from this public repo (raw URLs on `main`).
 
 ## Build and scan
 From `bot/`:
