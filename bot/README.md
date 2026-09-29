@@ -7,9 +7,9 @@ A library for your contracts, policies and any long document you might need to l
 | `bot.json` | Profile, connections (`pluginId` strings), memories, getting-started skill |
 | `routines.json` | The one source for routines. Every routine `"enabled": false` |
 | `skills/` | `docs-librarian-getting-started`, `docs-librarian-core-rules`, `docs-librarian-library`, `docs-librarian-renewals` |
-| `fixed-files/` | The index Sheet layout and the folder set, fetched at setup from this public repo, pinned to a release tag; URLs and checksums in `MANIFEST.md` |
+| `fixed-files/` | The index Sheet layout and the folder set, fetched at setup from this public repo, pinned to the tag `fixed-files-v1`; URLs and checksums in `MANIFEST.md` |
 | `docs/` | Website handoff, and the test results once there are some. Working notes are kept privately by the owner, not here |
-| `listing/` | Marketplace listing copy and images (a draft for the owner to approve; finalised at gate ⑥) |
+| `listing/` | Marketplace listing copy and images (a draft for the owner to approve; finalised before publishing) |
 | `proof/` | Screenshots and test-run evidence for each release (empty; nothing tested yet) |
 | `samples/` | Fake data only: Sheet mock-ups, sample files |
 | `args/` | Generated share args (by `build.py`; never hand-edited) |
