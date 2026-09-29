@@ -1,3 +1,3 @@
 # One regex per line (case-insensitive). Per-bot words; the generic list is built into banned_scan.py.
-# Mirror of the list inside <!-- banned-list --> markers in <bot>-core-rules.
-\bexample-banned-word\b
+# Mirror of the list inside <!-- banned-list --> markers in docs-librarian-core-rules.
+# PLACEHOLDER: no Docs Librarian words agreed yet. The generic list applies until the core-rules skill is written.

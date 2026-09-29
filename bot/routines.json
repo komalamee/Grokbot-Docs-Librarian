@@ -1,14 +1,38 @@
 [
   {
-    "slug": "mybot-check-in",
-    "name": "MyBot check-in",
-    "description": "Asks one question each evening so the record stays complete.",
-    "schedule": "Daily at 21:00 in the owner's timezone, or the time the owner picks when switching it on.",
-    "cron": "0 21 * * *",
+    "slug": "docs-librarian-inbox-check",
+    "name": "Docs Librarian inbox check",
+    "description": "Looks for new policies, contracts and receipts in the inboxes you named, and offers to file them.",
+    "schedule": "Daily at 09:00 in the owner's timezone, or the frequency the owner picks when switching it on. Each check uses tokens.",
+    "cron": "0 9 * * *",
+    "trigger": "time",
+    "enabled": false,
+    "needs": ["Gmail", "Google Sheets"],
+    "quiet_when": "Not switched on by the owner, nothing new found, no connection to the inbox, or paused.",
+    "job": "Check the inboxes the owner named for new policies, contracts and receipts. Ask in one line whether to save each one to the library. Save only after a yes, add the row to the index Sheet, then confirm in one line with the link to that row."
+  },
+  {
+    "slug": "docs-librarian-renewal-alert",
+    "name": "Docs Librarian renewal alert",
+    "description": "Flags a renewal or expiry 30 days ahead and asks whether to renew or cancel.",
+    "schedule": "Daily at 09:00 in the owner's timezone; it speaks only when a renewal or expiry date is 30 days away.",
+    "cron": "0 9 * * *",
     "trigger": "time",
     "enabled": false,
     "needs": ["Google Sheets"],
-    "quiet_when": "Not switched on by the owner, no record yet, today already logged, or paused.",
-    "job": "Run the check-in in mybot-main-job. Read the Sheet first. Send one short question, at most one message, never a chaser."
+    "quiet_when": "Not switched on by the owner, no renewal or expiry 30 days away, no index Sheet yet, or paused.",
+    "job": "Read the renewals tab of the index Sheet. When a renewal or expiry is 30 days away, send one message with the date and the provider's contact details and ask whether to renew or cancel. Offer a price comparison, never run one unless the owner says yes, and say that a comparison uses tokens."
+  },
+  {
+    "slug": "docs-librarian-monthly-look-ahead",
+    "name": "Docs Librarian monthly look-ahead",
+    "description": "A short look at the renewals and expiry dates coming up in the month ahead.",
+    "schedule": "On the 1st of the month at 09:00 in the owner's timezone.",
+    "cron": "0 9 1 * *",
+    "trigger": "time",
+    "enabled": false,
+    "needs": ["Google Sheets"],
+    "quiet_when": "Not switched on by the owner, nothing coming up in the month ahead, no index Sheet yet, or paused.",
+    "job": "Read the renewals tab of the index Sheet and list what falls due in the month ahead, with dates. One message, never a chaser."
   }
 ]

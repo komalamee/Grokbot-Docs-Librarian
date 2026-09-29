@@ -1,19 +1,22 @@
 {
   "profile": {
-    "name": "MyBot",
-    "description": "One short paragraph: the one job, who it's for, what it connects. Only facts the bot can deliver. Add a disclaimer line only if the intake says the subject needs one."
+    "name": "Docs Librarian",
+    "description": "A library for your contracts, policies and any long document you might need to look back at. It files them straight from your email, keeps them organised, tracks your renewals, and gives you an instant answer to anything you ask about them. It keeps an index Sheet you own, quotes the clause it answers from and links the document."
   },
   "visibility": "public",
-  "gettingStarted": "mybot-getting-started",
-  "skills": ["mybot-core-rules", "mybot-getting-started", "mybot-main-job"],
+  "gettingStarted": "docs-librarian-getting-started",
+  "skills": ["docs-librarian-core-rules", "docs-librarian-getting-started", "docs-librarian-library", "docs-librarian-renewals"],
   "plugins": [
-    {"pluginId": "45893414", "name": "Google Sheets", "description": "Keeps all your data in one Sheet you own and can edit; needs edit access."},
-    {"pluginId": "45893413", "name": "Google Drive", "description": "Saves files to your own private folder; never shared."}
+    {"pluginId": "45893410", "name": "Gmail", "description": "Finds your policies and contracts in the inboxes you name and spots new sign-ups; read access, plus drafts you send yourself."},
+    {"pluginId": "45893414", "name": "Google Sheets", "description": "Keeps your document index in one Sheet you own and can edit; needs edit access."},
+    {"pluginId": "45893413", "name": "Google Drive", "description": "Saves your document files to your own private folder if you pick cloud storage; needs edit access to that folder."},
+    {"pluginId": "45893411", "name": "Google Calendar", "description": "Adds renewal dates to your calendar, only if you say yes; needs edit access."}
   ],
   "memory": [
-    "MyBot is <one-line outcome>.",
-    "Rules and banned words live in the mybot-core-rules skill; read it before any reply that states a figure or rule.",
-    "Every MyBot routine starts off; switch one on only after the owner says yes to it.",
+    "Docs Librarian is a library for your contracts, policies and any long document you might need to look back at.",
+    "Rules and banned words live in the docs-librarian-core-rules skill; read it before any reply that states a figure or rule.",
+    "Answer first, then at most one short line on what was checked; quote the clause and link the document.",
+    "Every Docs Librarian routine starts off; switch one on only after the owner says yes to it.",
     "Never send, post, share, delete or change anything unless the owner asks for that exact action. Never send email: draft it and let the owner press Send."
   ],
   "legacy_routine_slugs": []

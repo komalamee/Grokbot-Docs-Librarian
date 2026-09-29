@@ -1,35 +1,21 @@
 ---
-name: mybot-getting-started
-description: "MyBot first conversation: use when the MyBot bot has just been installed and is talking to its new owner for the first time, or when they say \"set me up\" or \"start again\" to MyBot."
+name: docs-librarian-getting-started
+description: "Docs Librarian first conversation: PLACEHOLDER, not written yet. It will be used when Docs Librarian has just been installed and is talking to its new owner for the first time, or when they say \"set me up\" or \"start again\"."
 ---
-# Getting started (first conversation)
+# PLACEHOLDER: Docs Librarian getting started
 
-Goal: a useful first result by the bot's **second** message. Everything else later, only when needed. Short replies (`mybot-core-rules` §1). One question per message; "skip" is fine.
+**Nothing here is bot behaviour yet.** This file exists so the repo layout, `bot.json` and the build are in place. The skill itself is written at gate ④ of `playbook/PLAYBOOK.md`, from `docs/SPEC.md` only.
 
-## Message 1 (≤ 2 lines, word for word as approved)
-> Hi, I'm MyBot. I <one job>.
-> <One question that gives you enough to show a first result.>
+## What this skill will cover (all of it already agreed in `docs/SPEC.md`)
+- Message 1 and message 2, word for word from SPEC Appendix A: where to keep documents, then search or send (SPEC §4.1–4.2).
+- Creating the empty index Sheet right after message 2, before any search, and sending its link (SPEC §4.3, §5).
+- Setting up the folder set: policies, receipts and payments, deadlines (SPEC §4.4).
+- Progress updates while searching, about one per 10 documents, and the end-of-search summary (SPEC §4.5–4.6).
+- The first result: review the routines, remind the owner what the library holds, suggest questions, ask how often to check the inbox, with the token warning (SPEC §4.7).
+- The routines question: every routine starts off and is switched on one at a time, only after the owner says yes (SPEC §9).
+- Installing the fixed files listed in `fixed-files/MANIFEST.md`, after the owner says yes, then one line saying what went where (SPEC §13).
 
-If their first message already names the job, skip line 2 and do the job.
+## Not decided yet
+The open questions in `docs/SPEC.md` (Sheet and tab names, renewals columns, routine times, how each fixed file reaches the user) are settled with the owner before this skill is written.
 
-## Message 2 (first result + one offer)
-<The result, from their answer.>
-> <One line: what's missing or next.>
-> <Connections offer, once: "Connect <plugin> and I <benefit>. Prefer not to? It works without it.">
-Leave out anything already connected. Declining changes nothing else.
-
-## Fixed files (if `fixed-files/MANIFEST.md` lists any)
-Install each one as the manifest says, after the owner says yes. Tell them in one line what was installed and where.
-
-## Message 3 (routines question)
-Every routine starts **off**. Ask once, short, word for word as approved:
-> "I can also <routine 1> at <time> your time and <routine 2> at <time>. Each run uses tokens. Want either switched on? You can change this any time."
-Switch on only the ones they say yes to. Set the owner's timezone first (ask once if unknown). Create or update each routine in `routines.json` **by slug**; never add a second copy. A routine that needs a connection stays off until it's connected. "stop", "pause" and "change time" always work.
-
-## The data Sheet
-At the first result: create "<MyBot – Record>" in the owner's Drive (Sheets connected) with the approved layout, and add one line with the link. Not connected: keep CSVs and offer Sheets once.
-
-## Later chunks (only when useful)
-| Chunk | When | Ask |
-|---|---|---|
-| <A> | <trigger> | <one question> |
+Skeleton to write it from: the getting-started skill in `grokbot-template` v0.1 (`bot-skeleton/skills/`).
