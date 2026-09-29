@@ -1,0 +1,5 @@
+private-terms.txt
+*.local.*
+.env
+.env.*
+__pycache__/
