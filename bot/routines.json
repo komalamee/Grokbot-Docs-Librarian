@@ -8,8 +8,8 @@
     "trigger": "time",
     "enabled": false,
     "needs": ["Gmail", "Google Sheets"],
-    "quiet_when": "Not switched on by the owner, nothing new found, no connection to the inbox, or paused.",
-    "job": "Check the inboxes the owner named for new policies, contracts and receipts. Ask in one line whether to save each one to the library. Save only after a yes, add the row to the index Sheet, then confirm in one line with the link to that row."
+    "quiet_when": "Not switched on by the owner, nothing new in the inboxes, no connection to the inbox or the index, or paused.",
+    "job": "Follow docs-librarian-library. Check the inboxes the owner named for new sign-ups, policies, contracts and receipts since the last run. For each new one, ask in one line whether to save it to the library. Save only after a yes, add the row to the index, then confirm in one line with the link to that row. Send nothing at all when there is nothing new."
   },
   {
     "slug": "docs-librarian-renewal-alert",
@@ -20,8 +20,8 @@
     "trigger": "time",
     "enabled": false,
     "needs": ["Google Sheets"],
-    "quiet_when": "Not switched on by the owner, no renewal or expiry 30 days away, no index Sheet yet, or paused.",
-    "job": "Read the renewals tab of the index Sheet. When a renewal or expiry is 30 days away, send one message with the date and the provider's contact details and ask whether to renew or cancel. Offer a price comparison, never run one unless the owner says yes, and say that a comparison uses tokens."
+    "quiet_when": "Not switched on by the owner, nothing 30 days from its renewal or expiry date, no index yet, or paused.",
+    "job": "Follow docs-librarian-renewals. Read the Renewals tab of the index. For each document whose renewal or expiry date is 30 days away, send one message with the document, the date, the price change if a document gives it, and the provider's contact details, and ask whether to renew or cancel. Offer a price comparison, say it uses tokens, and never run one without a yes. Send nothing when nothing is 30 days away."
   },
   {
     "slug": "docs-librarian-monthly-look-ahead",
@@ -32,7 +32,7 @@
     "trigger": "time",
     "enabled": false,
     "needs": ["Google Sheets"],
-    "quiet_when": "Not switched on by the owner, nothing coming up in the month ahead, no index Sheet yet, or paused.",
-    "job": "Read the renewals tab of the index Sheet and list what falls due in the month ahead, with dates. One message, never a chaser."
+    "quiet_when": "Not switched on by the owner, nothing falling due in the month ahead, no index yet, or paused.",
+    "job": "Follow docs-librarian-renewals. Read the Renewals tab of the index and list what falls due in the month ahead, soonest first, with dates and days left. One message, never a chaser. Send nothing when nothing falls due."
   }
 ]
