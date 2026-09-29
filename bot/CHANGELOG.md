@@ -5,12 +5,13 @@ One entry per version. Repo tag = marketplace card version. Add the listing URL 
 ## v0.1.0 (not published) · 29 Sep 2026
 - Made from grokbot-template v0.1.
 - Repo set up: `bot-skeleton/` became `bot/`, `mybot` / `MyBot` became `docs-librarian` / `Docs Librarian`.
-- `docs/INTAKE.md` and `docs/SPEC.md` added unchanged, as agreed with Koko.
-- `bot.json`: profile from the agreed goal line, the four connections from SPEC §10, general memories.
-- `routines.json`: the three routines from SPEC §9, every one `"enabled": false`.
-- Skills written from the spec, replacing the setup placeholders: `docs-librarian-getting-started` (SPEC §4 and the approved messages in Appendix A), `docs-librarian-core-rules` (§7, §11), `docs-librarian-library` (§3 to §7) and `docs-librarian-renewals` (§8).
-- Routine job text rewritten from SPEC §6, §8 and §9; all three stay `"enabled": false`.
-- Fixed files: `index-sheet-layout.json` (§5) and `folder-set.json` (§4). The repo is public now, so both are fetched at setup from raw URLs on `main` rather than embedded; `MANIFEST.md` lists each one and the skill that uses it.
-- `listing/LISTING.md`: a draft from the spec for the owner to approve.
-- `bot.json`: memories rewritten from the spec. `banned.txt` mirrors the core-rules list, drawn from §11.
+- Four skills written: `docs-librarian-getting-started` (the first conversation, the index Sheet, the folder set, the routines question), `docs-librarian-core-rules` (reply shape and the never list), `docs-librarian-library` (search, filing, the index, answers) and `docs-librarian-renewals` (the 30-day flag and the opt-in price comparison).
+- `routines.json`: the inbox check, the renewal alert and the monthly look-ahead. Every one `"enabled": false`, each silent when there is nothing to report.
+- `bot.json`: profile, the four connections (Gmail, Google Sheets, Google Drive, Google Calendar) and the bot's memories.
+- Fixed files: `index-sheet-layout.json` and `folder-set.json`, fetched at setup from this public repo. Pinned to the release tag `v0.1.0` rather than a branch, with SHA-256 checksums recorded in `fixed-files/MANIFEST.md`, following the repo standard on pinned installs.
+- `listing/LISTING.md`: a draft; the wording still needs the owner's approval.
+- The routines question and the banned-phrase list in `banned.txt` and the core-rules skill are approved as written.
+- The repository is public and holds the bot's files only. The intake notes and the build plan are kept privately by the owner and are not in this repo.
 - Build and scan run clean; `args/create_bot_share_json.args.json` is a pre-test build, not a release.
+
+**Before the bot can fetch its fixed files, the tag `v0.1.0` has to exist on `main`.** The pinned URLs return 404 until it does.

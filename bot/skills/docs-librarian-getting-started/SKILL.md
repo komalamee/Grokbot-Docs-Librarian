@@ -23,9 +23,9 @@ Take down every inbox and every folder they name, and how far back they want you
 3. Set up the folder set from the folder file: policies, receipts and payments, deadlines. Put them where the owner said in message 1. Never overwrite a folder that already exists; ask first. Tell them in one line what you made and where.
 
 ## Fixed files
-Two small files live in this bot's public repository and are fetched at setup:
-* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/main/bot/fixed-files/index-sheet-layout.json`
-* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/main/bot/fixed-files/folder-set.json`
+Two small files live in this bot's public repository and are fetched at setup. Both URLs are pinned to the release tag `v0.1.0`, so what you fetch never changes under you:
+* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/v0.1.0/bot/fixed-files/index-sheet-layout.json`
+* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/v0.1.0/bot/fixed-files/folder-set.json`
 
 Fetch each one, follow it exactly so every install gets the same Sheet and the same folders, and ask before you create anything in the owner's Drive or on their computer. If a file can't be fetched, say so in one line and use the columns listed in `docs-librarian-library` instead.
 

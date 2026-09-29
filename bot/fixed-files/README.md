@@ -9,6 +9,6 @@ Examples from the Docs Librarian spec: the folder set (policies, receipts/paymen
 - Never overwrite a user's existing file without asking. Back up first.
 - No private data, keys, owner paths or real names in these files. They pass `banned_scan.py`.
 - Test on a clean install before release; keep the evidence in `proof/`.
-- **Open point:** a bot installed on someone else's account can't be expected to read this private repo. Decide per bot in the spec how each file reaches the user: written out by a skill (small files), or fetched from a public, code-only location (pinned version + checksum).
+- **How these reach the user here:** this repository is public, so each file is fetched from it at setup, pinned to a release tag and never to a branch, with its checksum recorded in `MANIFEST.md`. An install therefore gets the exact bytes that were tested, and nothing changes under a live user until the skill points at a new tag.
 
 `sheet-layout.example.json` shows the human-first Sheet design. Copy and adapt it, or delete it if the bot has no Sheet.
