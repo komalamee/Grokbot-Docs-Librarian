@@ -1,19 +1,21 @@
-# <Bot name> (Grok Bot template)
+# Docs Librarian (Grok Bot template)
 
-<one line, from the agreed goal line> · Live link: not published yet · Current version: none
+A library for your contracts, policies and any long document you might need to look back at · Live link: not published yet · Current version: none (setup only; skills are placeholders)
 
 | Folder / file | What |
 |---|---|
 | `bot.json` | Profile, connections (`pluginId` strings), memories, getting-started skill |
 | `routines.json` | The one source for routines. Every routine `"enabled": false` |
-| `skills/` | `mybot-getting-started`, `mybot-core-rules`, `mybot-main-job` (rename `mybot`) |
-| `fixed-files/` | Files that install on the user's side on import, listed in `MANIFEST.md` |
-| `docs/` | `INTAKE.md`, `SPEC.md`, `RETEST.md`, comparisons, website handoff |
-| `listing/` | Marketplace listing copy and images |
-| `proof/` | Screenshots and test-run evidence for each release |
+| `skills/` | `docs-librarian-getting-started`, `docs-librarian-core-rules`, `docs-librarian-library`, `docs-librarian-renewals` — all **placeholders** until gate ④ |
+| `fixed-files/` | Files that install on the user's side on import, listed in `MANIFEST.md` (drafts, not built yet) |
+| `docs/` | `INTAKE.md`, `SPEC.md` (both approved, unchanged), `RETEST.md` later, website handoff |
+| `listing/` | Marketplace listing copy and images (written at gate ⑥) |
+| `proof/` | Screenshots and test-run evidence for each release (empty; nothing tested yet) |
 | `samples/` | Fake data only: Sheet mock-ups, sample files |
 | `args/` | Generated share args (by `build.py`; never hand-edited) |
-| `build.py` · `banned_scan.py` · `banned.txt` | Build with hard checks; banned-word and private-data scan |
+| `build.py` · `banned_scan.py` · `banned.txt` · `allow.txt` | Build with hard checks; banned-word and private-data scan |
 
-Build: `python3 build.py --private-terms ../private-terms.txt` (add `--check-live <live skills folder>` before release).
+Build: `python3 build.py --allow allow.txt --private-terms ../private-terms.txt` (add `--check-live <live skills folder>` before release).
 Scan: `python3 banned_scan.py skills listing args --banned banned.txt --private-terms ../private-terms.txt`.
+
+`private-terms.txt` is the owner's own file and never lives in this repo: keep it outside the checkout, or at the repo root where `.gitignore` covers it. `allow.txt` holds one entry: this bot's 33-character routine slug, which `build.py` would otherwise read as a token (see `../TEMPLATE-FEEDBACK.md`).
