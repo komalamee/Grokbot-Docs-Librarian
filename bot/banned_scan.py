@@ -5,9 +5,18 @@ Generalised from the Nomad Pro engine's tools/banned_scan.py (28 Sep 2026).
 
   python3 banned_scan.py DIR_OR_FILE [...] [--banned banned.txt] [--allow allow.txt] [--private-terms FILE]
 
+Scope: this scans the bot's OWN wording (skills, listing, packed args). It is not a check on text the
+bot quotes back from someone's document: the core rules require quoting a clause verbatim, so a banned
+word can legitimately appear inside quotation marks in a reply. When scanning a transcript of bot
+output, read each hit before calling it a failure: inside a verbatim quote it is allowed, anywhere in
+the bot's own words it is not.
+
 1. Banned phrases = GENERIC list below + the bot's own banned.txt (one regex per line).
    Text between <!-- banned-list:start --> and <!-- banned-list:end --> is the bot's do-not-say list and is skipped.
-   allow.txt: exact phrases removed from a line before matching (official titles quoted verbatim, etc.). Keep it short.
+   allow.txt: exact substrings removed from a line before matching, for BOTH banned phrases and private
+   data (a public repo URL, an official title quoted verbatim). Matched literally, never as a pattern,
+   so a line only excuses itself. Keep it short and never put a bare name or handle in it: that would
+   also hide every address and path built from it.
 2. Private data: generic leak markers + --private-terms FILE (names, handles, cities; keep it OUTSIDE the repo).
 Exit 1 on any hit. This file is skipped (it contains the patterns).
 """
@@ -61,15 +70,15 @@ def main(argv=None):
         for n, line in enumerate(lines_of(f), 1):
             if "banned-list:start" in line: skip = True
             if "banned-list:end" in line: skip = False; continue
-            low = line.lower()
+            clean = line
+            for al in allow: clean = al.sub("[allowed]", clean)   # same allow-list for private data and banned phrases
+            low = clean.lower()
             for t in terms:
                 pat = (r"(?<![a-z0-9])" if t[:1].isalnum() else "") + re.escape(t) + (r"(?![a-z0-9])" if t[-1:].isalnum() else "")
                 if re.search(pat, low): ph.append((f, n, t, line.strip()[:140]))
             for rx in PRIVATE_REGEX:
-                for m in re.finditer(rx, line, re.I): ph.append((f, n, m.group(0), line.strip()[:140]))
+                for m in re.finditer(rx, clean, re.I): ph.append((f, n, m.group(0), line.strip()[:140]))
             if skip: continue
-            clean = line
-            for al in allow: clean = al.sub("[allowed]", clean)
             if f.suffix == ".py": clean = re.sub(r"(^\s*|:\s*)pass\s*(#.*)?$", r"\1", clean)
             for pat in banned:
                 for m in re.finditer(pat, clean, re.I): bh.append((f, n, m.group(0), line.strip()[:140]))

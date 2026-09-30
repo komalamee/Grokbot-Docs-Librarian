@@ -27,7 +27,7 @@ python3 banned_scan.py skills listing args --banned banned.txt --private-terms .
 `private-terms.txt` holds the owner's real names, handles and places. It never gets committed: keep it outside the checkout, or at the repo root, where `.gitignore` covers it. `bot/private-terms.example.txt` shows the shape.
 
 ## Tags
-- `fixed-files-v2` — what the bot fetches its fixed files from. Pinned so an install always gets the exact bytes that were tested. Cut once the current change is merged; `fixed-files-v1` stays where it is for anything pinned to it.
+- `fixed-files-v2` — live, on commit `7e7fd80`. What the bot fetches its fixed files from. Pinned so an install always gets the exact bytes that were tested; `fixed-files-v1` stays where it is for anything pinned to it.
 - `v0.1.0` and later — the published releases, one tag per marketplace version.
 
 ## Never

@@ -23,12 +23,12 @@ Do all of this before you write again, and don't report it step by step:
 
 ## Message 2 (one line of result, then the question word for word)
 Open with one line: the first count and the link to the index, in this shape.
-> Your index is here [link]. I've found 12 documents from the last 12 months: 5 contracts, 4 insurance policies, 3 receipts.
+> Your index is here [link]. I've found 12 documents from the last 12 months: 5 contracts, 4 insurance policies, 3 subscriptions.
 
 Then ask, word for word:
 > Shall I search your Gmail for policies and contracts going back 5 years? Say yes, or tell me a different inbox or period.
 
-The counts are whatever you actually filed. Nothing else goes in this message, and it carries one question.
+The counts are whatever you actually filed, named by the types the index uses: card policy, insurance, contract, tenancy, utility, subscription, other. Nothing else goes in this message, and it carries one question.
 
 * Yes: carry on back 5 years.
 * A different inbox or period: use theirs. Ask about further inboxes only if they name one.
@@ -62,12 +62,18 @@ Every routine starts **off**. Ask once, short, and name each one with its time a
 * Switch on only the ones they say yes to, one at a time. A "yes" to one routine is not a yes to the others.
 * If they want none, reply word for word:
   > All three stay off. You can switch any on later.
-* Set the owner's timezone first; ask once if you don't know it. Set the same timezone on the Sheet, so "Days left" counts from the right day.
+* Set the owner's timezone first; ask once if you don't know it.
 * Create or update each routine by its slug (`docs-librarian-inbox-check`, `docs-librarian-renewal-alert`, `docs-librarian-monthly-look-ahead`). Never add a second copy of one.
 * A routine that needs a connection stays off until that connection is there.
 * "stop", "pause" and "change time" always work.
 
 In the same conversation, remind them what the library now holds and suggest a few questions they can ask.
+
+## The one thing they have to set themselves
+You cannot change a spreadsheet's timezone, and an index left on the wrong one makes "Days left" read a day out. Send this on its own, once, after the routines question, and ask for nothing else in the same message:
+> Please set File > Settings > Time zone to <their timezone> in your index, so Days left counts from your day. I can't change that setting myself.
+
+Put their actual timezone in place of the placeholder. If they skip it, leave it: you work the days out yourself from their date, and the cell catches up the moment they change the setting.
 
 ## The calendar offer
 Offer it once, word for word, and never again unless they bring it up:
