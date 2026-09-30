@@ -18,6 +18,7 @@ Standard library only: sqlite3, subprocess (pdftotext), zipfile (.docx).
 """
 from __future__ import annotations
 import argparse, json, os, re, sqlite3, subprocess, sys, unicodedata, zipfile
+from contextlib import closing
 from pathlib import Path
 
 SCHEMA = "CREATE VIRTUAL TABLE IF NOT EXISTS chunks USING fts5(" \
@@ -40,23 +41,27 @@ def safe(docid: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]", "_", docid)[:120]
 
 
-def norm_raw(s: str) -> str:
-    """Unicode and punctuation normalisation before whitespace collapse."""
+def norm_light(s: str) -> str:
+    """Unicode, punctuation and soft-hyphen normalisation. Keeps line and page breaks."""
     s = unicodedata.normalize("NFKC", s)
     for k, v in QUOTE_MAP.items():
         s = s.replace(k, v)
-    s = s.replace("\u00ad", "")
-    s = re.sub(r"-\s*\n\s*", "", s)
-    return s
+    return s.replace("\u00ad", "")
+
+
+def norm_raw(s: str, keep_hyphen: bool = False) -> str:
+    """norm_light, then join a word split by a hyphen at a line end ("reimburse-/ment").
+    keep_hyphen=True keeps the hyphen instead, for real hyphens at a line end ("third-/party")."""
+    return re.sub(r"-\s*\n\s*", "-" if keep_hyphen else "", norm_light(s))
 
 
 def norm(s: str) -> str:
     return re.sub(r"\s+", " ", norm_raw(s)).strip()
 
 
-def prepare_text(text: str) -> str:
-    """Normalise a full document before indexing or verifying."""
-    return re.sub(r"\s+", " ", norm_raw(text)).strip()
+def prepare_text(text: str, keep_hyphen: bool = False) -> str:
+    """Normalise a full document (or passage) before indexing or verifying."""
+    return re.sub(r"\s+", " ", norm_raw(text, keep_hyphen)).strip()
 
 
 def extract(path: Path) -> str:
@@ -107,12 +112,15 @@ def verify_in_document(raw_text: str, quote: str) -> str | None:
     want = norm(quote)
     if not want:
         return None
-    full = prepare_text(raw_text)
-    if want not in full:
+    for keep in (False, True):                  # hyphen dropped, then hyphen kept, at line-end joins
+        full = prepare_text(raw_text, keep)
+        if want in full:
+            break
+    else:
         return None
     idx = full.find(want)
     pos = 0
-    chunks = [(loc, prepare_text(body)) for loc, body in passages(raw_text)]
+    chunks = [(loc, prepare_text(body, keep)) for loc, body in passages(norm_light(raw_text))]
     chunks = [(loc, c) for loc, c in chunks if c]
     for i, (loc, chunk) in enumerate(chunks):
         end = pos + len(chunk)
@@ -153,9 +161,8 @@ def canon_type(t: str | None) -> str:
 
 def index_one(conn, docid: str, doctype: str, text: str, card: str) -> int:
     conn.execute("DELETE FROM chunks WHERE docid = ?", (docid,))
-    prepared = prepare_text(text)
-    rows = [(docid, canon_type(doctype), "text", loc, body)
-            for loc, body in passages(prepared)]
+    rows = [(docid, canon_type(doctype), "text", loc, prepare_text(body))
+            for loc, body in passages(norm_light(text)) if body.strip()]
     rows += [(docid, canon_type(doctype), "card", "card", line.strip())
              for line in card.splitlines() if len(line.strip()) > 3]
     conn.executemany("INSERT INTO chunks(docid, doctype, kind, loc, body) VALUES (?,?,?,?,?)", rows)
@@ -176,11 +183,13 @@ def cmd_add(a) -> int:
     scanned = source.suffix.lower() == ".pdf" and real < MIN_PER_PAGE * pages
     (root / "text" / f"{safe(a.id)}.txt").write_text(text, encoding="utf-8")
     os.chmod(root / "text" / f"{safe(a.id)}.txt", 0o600)
-    card = ""
+    card, card_path = "", root / "cards" / f"{safe(a.id)}.md"
     if getattr(a, "card", None):
         card = Path(a.card).expanduser().read_text(encoding="utf-8")
-        (root / "cards" / f"{safe(a.id)}.md").write_text(card, encoding="utf-8")
-        os.chmod(root / "cards" / f"{safe(a.id)}.md", 0o600)
+        card_path.write_text(card, encoding="utf-8")
+        os.chmod(card_path, 0o600)
+    elif card_path.exists():                    # re-add without --card keeps the saved card indexed
+        card = card_path.read_text(encoding="utf-8")
     rows = read_catalog(root)
     prev = rows.get(a.id, {})
     row = {"id": a.id}
@@ -197,7 +206,8 @@ def cmd_add(a) -> int:
     if scanned:
         print(f"SCANNED {a.id}: no text layer, nothing indexed. Read this document directly.")
         return 0
-    n = index_one(db(root), a.id, row["type"], text, card)
+    with closing(db(root)) as conn:
+        n = index_one(conn, a.id, row["type"], text, card)
     print(f"ADDED {a.id}: {chars} characters, {n} passages indexed.")
     return 0
 
@@ -212,11 +222,12 @@ def cmd_find(a) -> int:
         args.append(a.type.lower())
     sql += " ORDER BY bm25(chunks) LIMIT ?"
     args.append(a.limit)
-    try:
-        hits = db(root).execute(sql, args).fetchall()
-    except sqlite3.OperationalError:                      # bad FTS5 syntax: treat it as a phrase
-        args[0] = '"' + a.query.replace('"', "") + '"'
-        hits = db(root).execute(sql, args).fetchall()
+    with closing(db(root)) as conn:
+        try:
+            hits = conn.execute(sql, args).fetchall()
+        except sqlite3.OperationalError:                  # bad FTS5 syntax: treat it as a phrase
+            args[0] = '"' + a.query.replace('"', "") + '"'
+            hits = conn.execute(sql, args).fetchall()
     if not hits:
         print("NO MATCH")
         return 1
@@ -258,18 +269,18 @@ def cmd_catalog(a) -> int:
 
 def cmd_rebuild(a) -> int:
     root = store()
-    conn = db(root)
-    conn.execute("DELETE FROM chunks")
-    conn.commit()
     total = 0
-    for docid, row in read_catalog(root).items():
-        text_path = root / "text" / f"{safe(docid)}.txt"
-        card_path = root / "cards" / f"{safe(docid)}.md"
-        if not text_path.exists() or row.get("scanned"):
-            continue
-        total += index_one(conn, docid, row.get("type", "other"),
-                           text_path.read_text(encoding="utf-8"),
-                           card_path.read_text(encoding="utf-8") if card_path.exists() else "")
+    with closing(db(root)) as conn:
+        conn.execute("DELETE FROM chunks")
+        conn.commit()
+        for docid, row in read_catalog(root).items():
+            text_path = root / "text" / f"{safe(docid)}.txt"
+            card_path = root / "cards" / f"{safe(docid)}.md"
+            if not text_path.exists() or row.get("scanned"):
+                continue
+            total += index_one(conn, docid, row.get("type", "other"),
+                               text_path.read_text(encoding="utf-8"),
+                               card_path.read_text(encoding="utf-8") if card_path.exists() else "")
     print(f"REBUILT: {total} passages from {len(read_catalog(root))} document(s).")
     return 0
 

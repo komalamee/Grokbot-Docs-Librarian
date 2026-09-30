@@ -13,4 +13,5 @@ https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v2/
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v3/
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/
+https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/
 https://github.com/komalamee/Grokbot-Docs-Librarian

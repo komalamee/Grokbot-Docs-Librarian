@@ -58,6 +58,24 @@ def pdf(path: Path, lines: list[str] | None) -> None:
     path.write_bytes(out.encode("latin-1"))
 
 
+def pdf_pages(path: Path, pages: list[list[str]]) -> None:
+    """A PDF with one page per list of lines, so pdftotext puts a form feed between pages."""
+    n = len(pages)
+    objs = ["<< /Type /Catalog /Pages 2 0 R >>",
+            "<< /Type /Pages /Kids [" + " ".join(f"{3 + 2 * i} 0 R" for i in range(n)) + f"] /Count {n} >>"]
+    for i, lines in enumerate(pages):
+        content = "".join(f"BT /F1 12 Tf 72 {720 - j * 16} Td ({line}) Tj ET\n" for j, line in enumerate(lines))
+        objs.append("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+                    f"/Resources << /Font << /F1 {3 + 2 * n} 0 R >> >> /Contents {4 + 2 * i} 0 R >>")
+        objs.append(f"<< /Length {len(content)} >>\nstream\n{content}\nendstream")
+    objs.append("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+    out = "%PDF-1.4\n"
+    for i, obj in enumerate(objs, 1):
+        out += f"{i} 0 obj\n{obj}\nendobj\n"
+    out += f"trailer\n<< /Size {len(objs) + 1} /Root 1 0 R >>\n%%EOF\n"
+    path.write_bytes(out.encode("latin-1"))
+
+
 class StoreTest(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -257,6 +275,59 @@ class StoreTest(unittest.TestCase):
         self.run_tool("add", "--id", "sp:doc.txt", "--file", self.write("sp.txt", text))
         _, cat = self.run_tool("catalog", "--json")
         self.assertIn('"chars": 17', cat)
+
+
+    # v0.2.2 ---------------------------------------------------------------
+    @unittest.skipIf(shutil.which("pdftotext") is None, "pdftotext not installed")
+    def test_multipage_pdf_is_indexed_page_by_page(self):
+        path = self.tmp / "three-pages.pdf"
+        pdf_pages(path, [["Section 1 Cover", "The excess payable on each claim is 100 pounds"],
+                         ["Section 2 Exclusions", "We do not cover zebra rides or winter sports"],
+                         ["Section 3 Cancellation", "You may cancel within 14 days for a yak refund"]])
+        code, out = self.run_tool("add", "--id", "msg6:three.pdf", "--type", "insurance", "--file", str(path))
+        self.assertEqual(code, 0, out)
+        self.assertIn("3 passages indexed", out)
+        _, out = self.run_tool("find", "zebra")
+        self.assertIn("page 2 (text)", out)
+        _, out = self.run_tool("find", "yak")
+        self.assertIn("page 3 (text)", out)
+        _, out = self.run_tool("verify", "--id", "msg6:three.pdf", "--quote", "You may cancel within 14 days")
+        self.assertIn("found on page 3", out)
+
+    def test_long_multi_paragraph_text_gives_several_parts(self):
+        paras = [f"Paragraph {i}. " + "This clause sets out ordinary terms for the agreement. " * 3 for i in range(40)]
+        paras[-1] += "The quokka clause ends here."
+        self.run_tool("add", "--id", "long:doc.txt", "--file", self.write("long.txt", "\n\n".join(paras)))
+        store = Path(os.environ["DOCS_LIBRARIAN_HOME"])
+        import sqlite3
+        with sqlite3.connect(store / "index.db") as conn:
+            locs = [r[0] for r in conn.execute("SELECT loc FROM chunks WHERE kind = 'text'")]
+        conn.close()
+        self.assertGreater(len(locs), 5)
+        self.assertEqual(len(locs), len(set(locs)))
+        _, out = self.run_tool("find", "quokka")
+        self.assertRegex(out, r"part (\d+) \(text\)")
+        self.assertNotIn("part 1 (text)", out)
+
+    def test_verify_real_hyphen_split_at_a_line_end(self):
+        text = ("We are required to register all third-\nparty claims with the board.\n"
+                "The excess reimburse-\nment limit is 500.\n")
+        self.run_tool("add", "--id", "hy:doc.txt", "--file", self.write("hy.txt", text))
+        for quote in ("register all third-party claims with the board.",
+                      "The excess reimbursement limit is 500."):
+            code, out = self.run_tool("verify", "--id", "hy:doc.txt", "--quote", quote)
+            self.assertEqual(code, 0, quote + " -> " + out)
+        code, _ = self.run_tool("verify", "--id", "hy:doc.txt", "--quote", "register all fourth-party claims")
+        self.assertEqual(code, 1)
+
+    def test_readd_without_card_keeps_the_card_indexed(self):
+        _, first = self.add_policy()
+        code, again = self.run_tool("add", "--id", "msg1:policy.txt", "--file", self.write("policy.txt", POLICY))
+        self.assertEqual(code, 0)
+        self.assertEqual(first.split(": ", 1)[1], again.split(": ", 1)[1])
+        code, out = self.run_tool("find", "testing")
+        self.assertEqual(code, 0)
+        self.assertIn("(card)", out)
 
 
 if __name__ == "__main__":

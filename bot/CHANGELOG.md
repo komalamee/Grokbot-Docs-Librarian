@@ -2,6 +2,18 @@
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
 
+## v0.2.2 (not published) · 30 Sep 2026
+Three fixes in `fixed-files/librarian.py` (standard library only), each with a unit test that fails on v0.2.1.
+
+- **Pages are back in search.** v0.2.1 collapsed every line and page break before splitting a document into passages, so each document became one passage called "part 1". Passages are now cut from the lightly normalised text (page breaks and lines kept) and each passage is normalised on its own, so `find` reports "page N" again.
+- **`verify` accepts a real hyphen at a line end.** A quote now matches if either the hyphen-dropped form ("reimburse-/ment" = "reimbursement") or the hyphen-kept form ("third-/party" = "third-party") is in the text.
+- **Re-adding without `--card` keeps the card indexed.** The saved `cards/<id>.md` is loaded and indexed again, instead of dropping out of search until `rebuild`.
+- Database connections are closed after every command (no more ResourceWarnings in the tests).
+
+Fixed files and build
+- Pinned tag moves to **`fixed-files-v5`** (new `librarian.py` checksum in `fixed-files/MANIFEST.md` and URLs in `docs-librarian-getting-started`; layout and folder set unchanged). `allow.txt` adds the v5 URL prefix. The manifest's stale "until then the URLs return 404" note is gone.
+- Args rebuilt with `build.py --allow allow.txt`; `banned_scan.py` clean. All routines stay `"enabled": false`.
+
 ## v0.2.1 (not published) · 30 Sep 2026
 Six fixes in `fixed-files/librarian.py` (standard library only), with a unit test for each.
 
