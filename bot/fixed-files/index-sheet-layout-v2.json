@@ -9,7 +9,7 @@
     "Dates read as 12 Nov 2026.",
     "A cell the document does not fill stays blank. Nothing else means 'not in the document': no dashes, no 'Not recorded', no guesses.",
     "No ID codes, no row numbers, no backup tabs.",
-    "Set the spreadsheet timezone to the owner's when you create it, so the Days left formula counts from the right day.",
+    "The Days left formula counts from the spreadsheet's own timezone: ask the owner to set File > Settings > Time zone to theirs, as the bot cannot set it.",
     "The owner's own edits win."
   ],
   "date_format": "d mmm yyyy",
