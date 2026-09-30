@@ -1,4 +1,12 @@
 # Exact substrings allowed through build.py's private-data scan. Keep this short and public-safe.
-# This bot's monthly routine slug is 33 characters, so build.py's "token-like string" pattern
-# ([A-Za-z0-9_-]{32,}) reads it as a secret. It is a public routine slug, not a token.
+#
+# 1. This bot's monthly routine slug is 33 characters, so build.py's "token-like string" pattern
+#    ([A-Za-z0-9_-]{32,}) reads it as a secret. It is a public routine slug, not a token.
 docs-librarian-monthly-look-ahead
+#
+# 2. The fixed files are fetched from this public repository, so the pinned raw URL prefix and the
+#    GitHub handle inside it are public by design. Without these lines, a private-terms file that
+#    lists the owner's handle fails the build on the bot's own fetch URLs.
+https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v2/
+https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v1/
+komalamee
