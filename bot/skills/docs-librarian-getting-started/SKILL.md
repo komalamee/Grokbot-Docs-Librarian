@@ -83,11 +83,11 @@ Offer it once, word for word, and never again unless they bring it up:
 Only on a yes: connect Google Calendar and add the dates. On a no, reply in one line that the dates stay in the index only.
 
 ## Fixed files
-Three small files live in this bot's public repository and are fetched at setup. Every URL is pinned to the tag `fixed-files-v4`, so what you fetch never changes under you:
-* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/bot/fixed-files/index-sheet-layout-v2.json`
-* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/bot/fixed-files/folder-set.json`
-* The reading-store tool: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/bot/fixed-files/librarian.py`
-* The checksums of all three: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/bot/fixed-files/MANIFEST.md`
+Three small files live in this bot's public repository and are fetched at setup. Every URL is pinned to the tag `fixed-files-v5`, so what you fetch never changes under you:
+* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/index-sheet-layout-v2.json`
+* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/folder-set.json`
+* The reading-store tool: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/librarian.py`
+* The checksums of all three: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/MANIFEST.md`
 
 Fetch each one and follow it exactly, so every install gets the same Sheet, the same folders and the same tool.
 
