@@ -2,6 +2,23 @@
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
 
+## v0.1.2 (not published) · 30 Sep 2026
+Ten fixes from the clean-agent retest of v0.1.1. Wording and tooling only; the fixed files are unchanged, so the tag `fixed-files-v2` still serves them.
+
+The bot
+- Setup now asks the owner to set the index Sheet's timezone by hand, in its own message, because no connector tool can set it. Until they do, nothing depends on the "Days left" cell: the bot works out how far away a date is from today's date in the owner's timezone, and the cell is there for the owner to read.
+- A renewal alert says "ends on" for a cover period, a fixed term, an expiry or the last day paid for, and "renews on" only where the document itself says it renews. Both lines are scripted.
+- An answer that rests on more than one document quotes and links each of them, rather than one link standing in for several.
+- Filing rules for the cases that come up in every inbox: something already ended (file it only if it carries terms), a rolling plan with no end date (file it, date blank), the same document arriving twice (file it once), a blank template or unsigned draft (file it, marked in the Name), a document held through the owner's own company (file it, company named), and a shared link whose parties can't be seen (filed as one that couldn't be read).
+- The first starter search query excludes receipts, invoices, orders, bookings and itineraries, and asks for a PDF or Word attachment, so it stops dragging in noise.
+- The message 2 example uses the index's own types instead of "receipts", which was never one.
+- Core rules say a banned word may appear only inside a verbatim quote from a document.
+
+Tooling
+- `allow.txt` no longer carries a bare handle, which was hiding any email address that started with it. It now holds only the exact pinned raw-URL prefixes and the repository URL.
+- `banned_scan.py` applies `--allow` to private-data hits as well as banned phrases, with the same literal, exact-match semantics, so the bot's own public fetch URLs stop showing up as leaks. Its scope is documented: it reads the bot's own wording, not text the bot quotes back from a document.
+- `MANIFEST.md`, the changelog and the repo README no longer say the `fixed-files-v2` tag is still to be cut. It is live on commit `7e7fd80`.
+
 ## v0.1.1 (not published) · 30 Sep 2026
 Sixteen fixes from the first live test run. Behaviour only; no new job.
 
@@ -31,7 +48,7 @@ Files and tooling
 - `allow.txt` now allows the public raw-URL prefix and the GitHub handle inside it, so a standard private-terms run passes on the bot's own fetch URLs.
 - Dead references removed from `docs/README.md` and `fixed-files/README.md`.
 
-**`fixed-files-v2` has to exist on `main` before the bot can fetch its fixed files.** It is cut after this change is merged; until then the URLs return 404 and the skill falls back to the columns in `docs-librarian-library`.
+The tag `fixed-files-v2` went live on commit `7e7fd80` once this change was merged, and both pinned URLs serve the files.
 
 ## v0.1.0 (not published) · 29 Sep 2026
 - Built from the master template grokbot-template v0.1, with the upgraded rules in v0.2.
