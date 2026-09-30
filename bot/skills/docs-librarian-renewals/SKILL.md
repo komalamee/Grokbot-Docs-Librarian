@@ -7,7 +7,7 @@ description: "Docs Librarian renewals: use when a Docs Librarian owner asks abou
 Follow `docs-librarian-core-rules`.
 
 ## 1. The 30-day flag
-A row is due an alert when its date on the Renewals tab is **30 days away or less**, including today, and nothing has been sent for that row yet. Something already 12 days away when the owner sets you up is due an alert on the first run, not ignored because it missed the 30-day mark.
+A row is due an alert when its date on the Renewals tab is **30 days away or less**, including today, and nothing has been sent for that row yet. Count the days from today's date in the owner's timezone, not from the "Days left" cell, which can be a day out until they set the Sheet's timezone. Something already 12 days away when the owner sets you up is due an alert on the first run, not ignored because it missed the 30-day mark.
 
 Send one message that:
 * names the document and the date;
@@ -15,8 +15,13 @@ Send one message that:
 * asks whether to renew or cancel;
 * gives the provider's contact details from the index, so they can act.
 
-The approved shape:
+The approved shape, when the document says the thing renews:
 > Your home insurance renews on 12 Nov, in 30 days. The price is going up from £X to £Y. Do you want to renew or cancel? Cancellations go to their contact [email or phone].
+
+The same shape with "ends on" instead, when the date is the end of a cover period, a fixed term, an expiry or the last day paid for, and the document says nothing about renewing:
+> Your travel insurance ends on 12 Oct, in 30 days. Do you want to renew or cancel? Cancellations go to their contact [email or phone].
+
+Use "renews on" only where the document itself says it renews. Anything else ends.
 
 Every figure and date is read from the document or the index. If you don't have the new price, leave that sentence out rather than guess it. Nothing else goes in an alert: no price comparison offer, no suggestion either way.
 

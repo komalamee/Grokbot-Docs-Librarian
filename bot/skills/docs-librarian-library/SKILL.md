@@ -10,7 +10,7 @@ Follow `docs-librarian-core-rules`.
 Search every inbox the owner named, as far back as they asked, up to 5 years. Look for: credit card policies · car, health and travel insurance · job, shareholder and other contracts, signed or not · tenancy agreements · electricity and phone contracts · subscriptions · any other long document they said they want to keep.
 
 Start from queries like these and add the provider names you already know about:
-* `newer_than:5y has:attachment (policy OR certificate OR agreement OR contract OR tenancy OR lease OR "terms and conditions")`
+* `newer_than:5y has:attachment (policy OR certificate OR agreement OR contract OR tenancy OR lease OR "terms and conditions") -subject:(receipt OR invoice OR order OR booking OR itinerary) (filename:pdf OR filename:docx)`
 * `subject:(renewal OR "contract summary" OR "certificate of insurance" OR "your policy")`
 * `from:(docusign.net OR hellosign.com)`
 
@@ -30,6 +30,14 @@ What you do depends on the answer to message 1.
 * **They chose Google Drive.** Copy the file into the folder set in their Drive — policies, receipts and payments, deadlines — and the File link points at that copy. Never overwrite a file that is already there; ask first.
 
 Either way, never delete anything, and never move a file the owner put somewhere themselves.
+
+**Cases that come up in every inbox:**
+* **Something that has already ended, or whose dates are all in the past.** File it when it carries terms: a contract, a policy, plan terms. Skip a bare receipt or a "your subscription has ended" notice with no terms attached.
+* **A rolling weekly or monthly plan with no end date.** File it and leave "Renews or ends" blank.
+* **The same document arriving twice** — a resent envelope, a copy, a reminder. File it once, and link the message it first arrived in.
+* **A blank template or an unsigned draft.** File it, and put "(blank template)" or "(draft)" at the end of the Name, so the owner can see what it is.
+* **A document the owner holds through their own company.** File it, and name the company in the Name. It is still theirs.
+* **A shared link where you can't see who the parties are.** File it as one you couldn't read, list it in the summary, and don't guess whose it is.
 
 ## 3. The index
 The Sheet "Docs Librarian – Index" holds two tabs. The exact layout comes from the layout file fetched at setup; these are the columns it sets up.
@@ -54,7 +62,8 @@ Rules for both tabs:
 * Written for a person to read. Dates like "12 Nov 2026". No ID codes and no row numbers anywhere.
 * **Anything the document doesn't give you stays blank.** Never write "Not recorded", a dash or a guess: an empty cell is the one way to say "not in the document".
 * Provider contact is whatever the document gives for reaching them: the address, phone number or page they publish for questions, cancellations and refunds.
-* "Days left" is a formula, `=C2-TODAY()` for row 2 and so on down the tab, so it stays right between runs. Set the Sheet's timezone to the owner's when you create it.
+* "Days left" is a formula, `=C2-TODAY()` for row 2 and so on down the tab, so it stays right between runs. It counts from the Sheet's own timezone, which you can't set, so ask the owner to set it once (`docs-librarian-getting-started`). Until they do, the cell can read a day out.
+* Never decide anything from that cell. When you need to know how far away a date is, work it out from today's date in the owner's timezone. The cell is there for the owner to read.
 * "Alerted" holds the date the renewal alert last went out for that row, and stays blank until one does. It is what stops the same date being flagged twice.
 * Write the row before you reply.
 
@@ -70,7 +79,7 @@ This matters because it tells the owner the document is safe and reminds them th
 ## 5. Answering a question
 1. Work out every document that could hold the answer, and read all of them. A question about car hire cover across all cards means every card policy, not the first one that matches.
 2. Give the answer in the first line.
-3. Quote the clause, say where it sits in the document, and link the document.
+3. Quote the clause, say where it sits in the document, and link the document. When the answer rests on more than one document, do that for each of them: one quote and one link per document, never a single link standing in for several.
 4. Add at most one short line naming what you reviewed.
 
 The approved shape:
