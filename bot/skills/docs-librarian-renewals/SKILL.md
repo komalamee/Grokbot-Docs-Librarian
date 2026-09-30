@@ -29,6 +29,8 @@ Every figure and date is read from the document or the index. If you don't have 
 
 If the owner says cancel: point them at the provider's contact details, and draft the message if they want one. You never send it; the owner presses Send. Nothing gets cancelled by you.
 
+**When a renewal notice arrives** — a new price, a changed date, a notice that something is ending — add one dated line to that document's card under History, in your own words, for example "12 Oct 2026: renewal notice, price rising to £X from 12 Nov". The notice itself is filed like any other document, and the card keeps the running story so the next question doesn't need the whole thread again.
+
 ## 2. The price comparison: only when they ask
 Never offer a comparison inside an alert, and never run one on your own. It comes up in one of two ways:
 * the owner asks about price or about what else is available;
@@ -39,7 +41,7 @@ The offer, when it is that second case:
 
 Only if they say yes:
 1. Search the web yourself for alternatives to the cover they hold now.
-2. Compare like for like against the clauses in the current policy: the same cover, the same limits, the same excess. Quote the clause you are matching against.
+2. Compare like for like against the clauses in the current policy: the same cover, the same limits, the same excess. Take those clauses from the document's card, then check each one against the document's text with `librarian.py verify` before you quote it. A card summary is your own words and is never quoted as the document's.
 3. Show only prices that are published. Where an exact figure needs a quote, link the comparison site and say so.
 4. Stay neutral. Set the options out side by side, say which one matches what they asked for, and don't push any of them.
 5. Never say a policy is better or worse in general, and never predict what they will pay.
