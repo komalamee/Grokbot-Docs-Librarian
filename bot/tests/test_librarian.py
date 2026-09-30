@@ -93,7 +93,7 @@ class StoreTest(unittest.TestCase):
         self.assertTrue((store / "text" / "msg1_policy.txt.txt").exists())
         self.assertTrue((store / "cards" / "msg1_policy.txt.md").exists())
         self.assertEqual(oct(store.stat().st_mode)[-3:], "700")
-        code, out = self.run_tool("catalog")
+        code, out = self.run_tool("catalog", "--json")
         self.assertIn('"provider": "Test Insurer"', out)
         self.assertIn("1 document(s).", out)
 
@@ -162,7 +162,7 @@ class StoreTest(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn("SCANNED", out)
         self.assertIn("Read this document directly", out)
-        _, cat = self.run_tool("catalog")
+        _, cat = self.run_tool("catalog", "--json")
         self.assertIn('"scanned": true', cat)
         code, out = self.run_tool("find", "anything")
         self.assertEqual(code, 1)
@@ -199,6 +199,64 @@ class StoreTest(unittest.TestCase):
         code, out = self.run_tool("add", "--id", "nope", "--file", str(self.tmp / "gone.pdf"))
         self.assertEqual(code, 1)
         self.assertIn("MISSING", out)
+
+    def test_verify_across_passage_boundary(self):
+        """A quote spanning two ~900-char passages must still verify; page is where it starts."""
+        pad = "word " * 430
+        text = pad + "Alpha start " + ("fill " * 80) + "end beta finish."
+        self.run_tool("add", "--id", "wide:doc.txt", "--file", self.write("wide.txt", text))
+        quote = "Alpha start " + "fill " * 80 + "end beta"
+        code, out = self.run_tool("verify", "--id", "wide:doc.txt", "--quote", quote)
+        self.assertEqual(code, 0, out)
+        self.assertIn("OK", out)
+        self.assertRegex(out.lower(), r"(page|part) \d+")
+
+    def test_reindex_keeps_metadata_unless_overwritten(self):
+        self.add_policy()
+        code, _ = self.run_tool("index", "--id", "msg1:policy.txt",
+                                "--file", self.write("policy.txt", POLICY))
+        self.assertEqual(code, 0)
+        _, cat = self.run_tool("catalog", "--json")
+        self.assertIn('"type": "insurance"', cat)
+        self.assertIn('"provider": "Test Insurer"', cat)
+        self.assertIn('"name": "Test travel policy"', cat)
+
+    def test_type_filter_is_case_insensitive(self):
+        self.add_policy(doctype="Insurance")
+        _, cat = self.run_tool("catalog", "--json")
+        self.assertIn('"type": "insurance"', cat)
+        code, out = self.run_tool("find", "excess", "--type", "Insurance")
+        self.assertEqual(code, 0)
+        self.assertIn("msg1:policy.txt", out)
+        code, out = self.run_tool("catalog", "--type", "Insurance")
+        self.assertIn("msg1:policy.txt", out.split("\t")[0])
+
+    def test_normalise_soft_hyphens_and_line_break_hyphens(self):
+        text = "The excess pay\u00adable on each claim is one hun\u00addred pounds.\n"
+        self.run_tool("add", "--id", "hyp:doc.txt", "--file", self.write("hyp.txt", text))
+        code, out = self.run_tool("verify", "--id", "hyp:doc.txt",
+                                  "--quote", "The excess payable on each claim is one hundred pounds.")
+        self.assertEqual(code, 0, out)
+        broken = "The total deduct\u00adible is fifty pounds unless the policy says other-\nwise here."
+        self.run_tool("add", "--id", "hyp2:doc.txt", "--file", self.write("hyp2.txt", broken))
+        code, out = self.run_tool("verify", "--id", "hyp2:doc.txt",
+                                  "--quote", "the policy says otherwise here.")
+        self.assertEqual(code, 0, out)
+
+    def test_catalog_default_is_compact_and_json_flag(self):
+        self.add_policy()
+        _, compact = self.run_tool("catalog")
+        self.assertNotIn('"provider"', compact)
+        self.assertIn("Test Insurer", compact)
+        self.assertIn("\t", compact)
+        _, full = self.run_tool("catalog", "--json")
+        self.assertIn('"provider": "Test Insurer"', full)
+
+    def test_character_count_includes_whitespace(self):
+        text = "  hello  world  \n"
+        self.run_tool("add", "--id", "sp:doc.txt", "--file", self.write("sp.txt", text))
+        _, cat = self.run_tool("catalog", "--json")
+        self.assertIn('"chars": 17', cat)
 
 
 if __name__ == "__main__":

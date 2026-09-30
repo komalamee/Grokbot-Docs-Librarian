@@ -6,7 +6,7 @@
   librarian.py index ...                      same as add; run it again to refresh one document
   librarian.py find "excess OR deductible" [--type insurance] [--limit 8]
   librarian.py verify --id ID --quote "the exact words from the document"
-  librarian.py catalog [--type insurance]
+  librarian.py catalog [--type insurance] [--json]
   librarian.py rebuild
 
 Store: $DOCS_LIBRARIAN_HOME, or ~/.docs-librarian, created mode 700. It holds text/<id>.txt,
@@ -40,11 +40,23 @@ def safe(docid: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]", "_", docid)[:120]
 
 
-def norm(s: str) -> str:
+def norm_raw(s: str) -> str:
+    """Unicode and punctuation normalisation before whitespace collapse."""
     s = unicodedata.normalize("NFKC", s)
     for k, v in QUOTE_MAP.items():
         s = s.replace(k, v)
-    return re.sub(r"\s+", " ", s).strip()
+    s = s.replace("\u00ad", "")
+    s = re.sub(r"-\s*\n\s*", "", s)
+    return s
+
+
+def norm(s: str) -> str:
+    return re.sub(r"\s+", " ", norm_raw(s)).strip()
+
+
+def prepare_text(text: str) -> str:
+    """Normalise a full document before indexing or verifying."""
+    return re.sub(r"\s+", " ", norm_raw(text)).strip()
 
 
 def extract(path: Path) -> str:
@@ -90,6 +102,28 @@ def passages(text: str, size: int = 900):
             yield (f"page {pageno}" if paged else f"part {part}"), buf
 
 
+def verify_in_document(raw_text: str, quote: str) -> str | None:
+    """If quote appears in the normalised document, return starting loc; else None."""
+    want = norm(quote)
+    if not want:
+        return None
+    full = prepare_text(raw_text)
+    if want not in full:
+        return None
+    idx = full.find(want)
+    pos = 0
+    chunks = [(loc, prepare_text(body)) for loc, body in passages(raw_text)]
+    chunks = [(loc, c) for loc, c in chunks if c]
+    for i, (loc, chunk) in enumerate(chunks):
+        end = pos + len(chunk)
+        if pos <= idx < end:
+            return loc
+        pos = end
+        if i + 1 < len(chunks):
+            pos += 1
+    return chunks[0][0] if chunks else None
+
+
 def db(root: Path) -> sqlite3.Connection:
     conn = sqlite3.connect(root / "index.db")
     conn.execute(SCHEMA)
@@ -113,10 +147,16 @@ def write_catalog(root: Path, rows: dict) -> None:
     os.chmod(root / "catalog.jsonl", 0o600)
 
 
+def canon_type(t: str | None) -> str:
+    return (t or "other").lower()
+
+
 def index_one(conn, docid: str, doctype: str, text: str, card: str) -> int:
     conn.execute("DELETE FROM chunks WHERE docid = ?", (docid,))
-    rows = [(docid, doctype, "text", loc, body) for loc, body in passages(text)]
-    rows += [(docid, doctype, "card", "card", line.strip())
+    prepared = prepare_text(text)
+    rows = [(docid, canon_type(doctype), "text", loc, body)
+            for loc, body in passages(prepared)]
+    rows += [(docid, canon_type(doctype), "card", "card", line.strip())
              for line in card.splitlines() if len(line.strip()) > 3]
     conn.executemany("INSERT INTO chunks(docid, doctype, kind, loc, body) VALUES (?,?,?,?,?)", rows)
     conn.commit()
@@ -130,26 +170,35 @@ def cmd_add(a) -> int:
         print(f"MISSING: {source}")
         return 1
     text = extract(source)
+    chars = len(text)
     real = len(re.sub(r"\s", "", text))
     pages = max(1, text.count("\f") or 1)
     scanned = source.suffix.lower() == ".pdf" and real < MIN_PER_PAGE * pages
     (root / "text" / f"{safe(a.id)}.txt").write_text(text, encoding="utf-8")
     os.chmod(root / "text" / f"{safe(a.id)}.txt", 0o600)
     card = ""
-    if a.card:
+    if getattr(a, "card", None):
         card = Path(a.card).expanduser().read_text(encoding="utf-8")
         (root / "cards" / f"{safe(a.id)}.md").write_text(card, encoding="utf-8")
         os.chmod(root / "cards" / f"{safe(a.id)}.md", 0o600)
     rows = read_catalog(root)
-    rows[a.id] = {"id": a.id, "name": a.name or source.name, "type": a.type or "other",
-                  "provider": a.provider or "", "start": a.start or "", "ends": a.ends or "",
-                  "link": a.link or "", "scanned": scanned, "chars": real}
+    prev = rows.get(a.id, {})
+    row = {"id": a.id}
+    row["name"] = a.name if hasattr(a, "name") else (prev.get("name") or source.name)
+    row["type"] = canon_type(a.type if hasattr(a, "type") else prev.get("type"))
+    row["provider"] = a.provider if hasattr(a, "provider") else prev.get("provider", "")
+    row["start"] = a.start if hasattr(a, "start") else prev.get("start", "")
+    row["ends"] = a.ends if hasattr(a, "ends") else prev.get("ends", "")
+    row["link"] = a.link if hasattr(a, "link") else prev.get("link", "")
+    row["scanned"] = scanned
+    row["chars"] = chars
+    rows[a.id] = row
     write_catalog(root, rows)
     if scanned:
         print(f"SCANNED {a.id}: no text layer, nothing indexed. Read this document directly.")
         return 0
-    n = index_one(db(root), a.id, rows[a.id]["type"], text, card)
-    print(f"ADDED {a.id}: {real} characters, {n} passages indexed.")
+    n = index_one(db(root), a.id, row["type"], text, card)
+    print(f"ADDED {a.id}: {chars} characters, {n} passages indexed.")
     return 0
 
 
@@ -159,8 +208,8 @@ def cmd_find(a) -> int:
            "bm25(chunks) FROM chunks WHERE chunks MATCH ?")
     args: list = [a.query]
     if a.type:
-        sql += " AND doctype = ?"
-        args.append(a.type)
+        sql += " AND lower(doctype) = ?"
+        args.append(a.type.lower())
     sql += " ORDER BY bm25(chunks) LIMIT ?"
     args.append(a.limit)
     try:
@@ -182,19 +231,27 @@ def cmd_verify(a) -> int:
     if not path.exists():
         print(f"NO TEXT for {a.id}: add it first, or read the document directly.")
         return 1
-    want = norm(a.quote)
-    for loc, body in passages(path.read_text(encoding="utf-8")):
-        if want and want in norm(body):
-            print(f"OK {a.id}: found on {loc}.")
-            return 0
+    raw = path.read_text(encoding="utf-8")
+    loc = verify_in_document(raw, a.quote)
+    if loc:
+        print(f"OK {a.id}: found on {loc}.")
+        return 0
     print(f"MISMATCH {a.id}: those words are not in the text. Do not quote them.")
     return 1
 
 
 def cmd_catalog(a) -> int:
-    rows = [r for r in read_catalog(store()).values() if not a.type or r["type"] == a.type]
+    filt = a.type.lower() if a.type else None
+    rows = [r for r in read_catalog(store()).values()
+            if not filt or r.get("type", "").lower() == filt]
     for row in rows:
-        print(json.dumps(row, ensure_ascii=False))
+        if a.json:
+            print(json.dumps(row, ensure_ascii=False))
+        else:
+            bits = [row.get("id", ""), row.get("name", ""), row.get("type", ""),
+                    row.get("provider", ""), row.get("start", ""), row.get("ends", ""),
+                    row.get("link", ""), str(row.get("chars", "")), str(row.get("scanned", ""))]
+            print("\t".join(bits))
     print(f"{len(rows)} document(s).")
     return 0
 
@@ -225,7 +282,7 @@ def main(argv=None) -> int:
         p.add_argument("--id", required=True)
         p.add_argument("--file", required=True)
         for opt in ("name", "type", "provider", "start", "ends", "link", "card"):
-            p.add_argument(f"--{opt}")
+            p.add_argument(f"--{opt}", action="store", default=argparse.SUPPRESS)
         p.set_defaults(fn=cmd_add)
     p = sub.add_parser("find")
     p.add_argument("query")
@@ -238,6 +295,7 @@ def main(argv=None) -> int:
     p.set_defaults(fn=cmd_verify)
     p = sub.add_parser("catalog")
     p.add_argument("--type")
+    p.add_argument("--json", action="store_true", help="full JSON per document")
     p.set_defaults(fn=cmd_catalog)
     sub.add_parser("rebuild").set_defaults(fn=cmd_rebuild)
     a = ap.parse_args(argv)
