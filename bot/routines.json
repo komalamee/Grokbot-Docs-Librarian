@@ -9,19 +9,19 @@
     "enabled": false,
     "needs": ["Gmail", "Google Sheets"],
     "quiet_when": "Not switched on by the owner, nothing new in the inboxes, no connection to the inbox or the index, or paused.",
-    "job": "Follow docs-librarian-library. Check the inboxes the owner named for new sign-ups, policies, contracts and receipts since the last run. For each new one, ask in one line whether to save it to the library. Save only after a yes, add the row to the index, then confirm in one line with the link to that row. Send nothing at all when there is nothing new."
+    "job": "Follow docs-librarian-library. Check the inboxes the owner named for new sign-ups, policies, contracts and receipts since the last run, skipping marketing and anything that belongs to someone else. For each new one, ask in one line whether to save it to the library. Only after a yes: copy the file to the folder set if the owner keeps files in Drive, or record the link to the message if they keep files in email, add the row to the index, then confirm in one line with the link to that row. Send nothing at all when there is nothing new."
   },
   {
     "slug": "docs-librarian-renewal-alert",
     "name": "Docs Librarian renewal alert",
-    "description": "Flags a renewal or expiry 30 days ahead and asks whether to renew or cancel.",
-    "schedule": "Daily at 09:00 in the owner's timezone; it speaks only when a renewal or expiry date is 30 days away.",
+    "description": "Flags a renewal or expiry date once, when it is 30 days away or less, and asks whether to renew or cancel.",
+    "schedule": "Daily at 09:00 in the owner's timezone; it speaks only when a date is 30 days away or less and has not been flagged yet.",
     "cron": "0 9 * * *",
     "trigger": "time",
     "enabled": false,
     "needs": ["Google Sheets"],
-    "quiet_when": "Not switched on by the owner, nothing 30 days from its renewal or expiry date, no index yet, or paused.",
-    "job": "Follow docs-librarian-renewals. Read the Renewals tab of the index. For each document whose renewal or expiry date is 30 days away, send one message with the document, the date, the price change if a document gives it, and the provider's contact details, and ask whether to renew or cancel. Offer a price comparison, say it uses tokens, and never run one without a yes. Send nothing when nothing is 30 days away."
+    "quiet_when": "Not switched on by the owner, nothing 30 days or less from its date, every date that close already flagged once, no index yet, or paused.",
+    "job": "Follow docs-librarian-renewals. Read the Renewals tab of the index. Take every row whose date is 30 days away or less, including today and including anything that was already close when the owner set you up, and whose Alerted cell is empty. For each one, send one message with the document, the date, the price change if a document gives it, and the provider's contact details, and ask whether to renew or cancel. Then write today's date into that row's Alerted cell, so the same date is never flagged twice; clear that cell only if the date itself changes. Offer no price comparison here. Send nothing when nothing is due."
   },
   {
     "slug": "docs-librarian-monthly-look-ahead",
