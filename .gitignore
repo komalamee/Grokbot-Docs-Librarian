@@ -3,3 +3,7 @@ private-terms.txt
 .env
 .env.*
 __pycache__/
+
+# the bot's private reading store: text copies of the owner's documents. Never committed.
+.docs-librarian/
+**/.docs-librarian/

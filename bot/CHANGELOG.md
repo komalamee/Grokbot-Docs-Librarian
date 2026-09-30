@@ -2,6 +2,33 @@
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
 
+## v0.2.0 (not published) · 30 Sep 2026
+A new way of answering: a private reading store, a card per document and a local search, so a question costs a search instead of a re-read of everything.
+
+The reading store
+- At filing time the bot now saves each document's text to `~/.docs-librarian/` (permissions 700, on its own computer, outside any repo) and writes a card for it. The store is a cache: the owner's mail, Drive and Sheet stay the record. It is never shared, uploaded or committed, and it is deleted only when the owner asks.
+- A card is two or three lines of summary in the bot's own words, then the clauses that matter as exact quotes with their section or page: excess, limits, territory, exclusions, cancellation and renewal for insurance; term, notice, auto-renewal, exit fees and price changes for a contract or utility; rent, deposit, break clause and notice for a tenancy; each benefit with its limit and conditions for a card policy. Every quote is checked against the document's text before the card is saved, and one that doesn't match is dropped rather than reworded.
+- `catalog.jsonl` carries one line per document — name, type, provider, dates, file link — keyed by the Gmail message id plus the attachment name from the File link. The Sheet keeps no ids and its layout is unchanged.
+- The catalog is checked against the Sheet's Name and File link columns once a day, and as soon as the owner says they edited the Sheet. Their edits win.
+
+Answering
+- Date questions are answered from the Renewals tab, "what do I have" questions from the catalog, and everything else by searching the store: about eight ranked passages and card lines, then only the matching section of the text is opened, every quote is verified against that text, and the answer carries the link. "Across all my X" uses the type filter so no document of that type is quietly missed.
+- Before saying a document doesn't cover something, the bot now opens that document's cover and exclusions sections, and reads the whole text if it is still unsure.
+- A new rule: a quote comes only from verified document text. A card summary is the bot's own words and is never quoted as the document's.
+
+The tool
+- `fixed-files/librarian.py`: standard library only, with `add`/`index`, `find`, `verify`, `catalog` and `rebuild`. It extracts text with `pdftotext` or from a `.docx`, indexes passages in SQLite FTS5 ranked with BM25, and checks a quote word for word. A PDF with no text layer is marked, not indexed, and the bot reads that document directly. If the tool can't be fetched or run, the bot falls back to `rg` over the store.
+- Unit tests in `bot/tests/test_librarian.py` cover adding, finding, the type filter, a made-up quote being caught, a scanned PDF with no text, a `.docx`, and rebuilding. The tool was also run against public policy PDFs.
+- Fixed files move to the tag **`fixed-files-v3`**, which adds `librarian.py` with its checksum in `fixed-files/MANIFEST.md`; the setup skill checks that checksum before running it. The layout's timezone rule now says to ask the owner to set the spreadsheet timezone, which was the wording left over from v0.1.2. Tabs, columns, headers and formats are untouched, so an index built under v2 needs no change.
+- `allow.txt` gains the v3 URL prefix, and `.gitignore` guards against a reading store ever being committed.
+
+Elsewhere
+- Setup creates the store, fetches the tool and says what "start again" does to it; the line for owners who keep files in email now reads "Nothing was copied to your Drive. I keep a private text copy on my own computer so answers are quick."
+- The inbox-check routine saves the text copy and card along with the row. All three routines stay `"enabled": false`.
+- A price comparison matches the card's clauses and then verifies them in the text; a renewal notice adds a dated line to the card's history.
+- `listing/LISTING.md` carries the owner's approved "What it does" wording, and says in the connections section that the bot keeps a private text copy and what it can't read.
+- `samples/card-example.md` shows the card format with invented content.
+
 ## v0.1.2 (not published) · 30 Sep 2026
 Ten fixes from the clean-agent retest of v0.1.1. Wording and tooling only; the fixed files are unchanged, so the tag `fixed-files-v2` still serves them.
 
