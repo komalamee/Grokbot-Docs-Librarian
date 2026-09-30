@@ -12,4 +12,5 @@ docs-librarian-monthly-look-ahead
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v1/
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v2/
 https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v3/
+https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v4/
 https://github.com/komalamee/Grokbot-Docs-Librarian

@@ -124,7 +124,7 @@ Route the question first; each route costs less than reading documents.
 | The question | Where the answer comes from |
 |---|---|
 | A date: when does something renew, end, expire, what's coming up | The Renewals tab of the Sheet. Nothing else needed |
-| What do I have: which policies, how many contracts, do I have anything with X | `catalog.jsonl`, or `librarian.py catalog --type <type>` |
+| What do I have: which policies, how many contracts, do I have anything with X | `catalog.jsonl`, or `librarian.py catalog --type <type>` (add `--json` for full JSON lines) |
 | Anything about what a document says | The steps below |
 
 1. **Find.** `librarian.py find "<the owner's words plus the other words for them>" [--type <type>]`, for example `"excess OR deductible OR liability"`. You get at most about 8 ranked passages and card lines: enough to see which documents matter and roughly where.

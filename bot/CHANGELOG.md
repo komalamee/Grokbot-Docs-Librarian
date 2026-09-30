@@ -2,6 +2,21 @@
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
 
+## v0.2.1 (not published) · 30 Sep 2026
+Six fixes in `fixed-files/librarian.py` (standard library only), with a unit test for each.
+
+The tool
+- **`verify`** now matches against the whole normalised document text, not a single ~900-character passage, so a real quote that crosses a passage boundary is accepted; the message still names the page (or part) where the quote starts.
+- Re-running **`add`** / **`index`** on an existing id keeps catalog metadata unless a field is passed again; type no longer resets to `other` and name, provider, dates and link are not cleared on a bare refresh.
+- **`--type`** on `find` and `catalog` is case-insensitive; types are stored lowercase in the catalog and index.
+- Text normalisation before indexing and verifying: soft hyphens, words split across a line break with a hyphen, and collapsed whitespace.
+- **`catalog`** prints one compact tab-separated line per document by default; **`--json`** keeps the old full-JSON lines.
+- **`chars`** in the catalog counts every character including whitespace.
+
+Fixed files and build
+- Pinned tag moves to **`fixed-files-v4`** (`librarian.py` checksum updated in `fixed-files/MANIFEST.md`; layout and folder set unchanged). `allow.txt` adds the v4 URL prefix. The manifest no longer says the tag is uncut; it is cut after merge.
+- Unit tests extended in `bot/tests/test_librarian.py`; `banned_scan.py` and `build.py` run clean. All routines stay `"enabled": false`.
+
 ## v0.2.0 (not published) · 30 Sep 2026
 A new way of answering: a private reading store, a card per document and a local search, so a question costs a search instead of a re-read of everything.
 
