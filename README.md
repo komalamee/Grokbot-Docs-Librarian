@@ -14,7 +14,7 @@ Public repo. It holds the bot's own files and nothing else; the working notes be
 - The three routines, all switched off: `bot/routines.json`.
 - Profile, connections and memories: `bot/bot.json`.
 - Skills: `bot/skills/` — `docs-librarian-getting-started`, `-core-rules`, `-library` and `-renewals`.
-- Fixed files: `bot/fixed-files/` — the index Sheet layout and the folder set, fetched at setup from this public repo, pinned to the tag `fixed-files-v1`, with their checksums in `bot/fixed-files/MANIFEST.md`.
+- Fixed files: `bot/fixed-files/` — the index Sheet layout and the folder set, fetched at setup from this public repo, pinned to the tag `fixed-files-v2`, with their checksums in `bot/fixed-files/MANIFEST.md`.
 
 ## Build and scan
 From `bot/`:
@@ -27,7 +27,7 @@ python3 banned_scan.py skills listing args --banned banned.txt --private-terms .
 `private-terms.txt` holds the owner's real names, handles and places. It never gets committed: keep it outside the checkout, or at the repo root, where `.gitignore` covers it. `bot/private-terms.example.txt` shows the shape.
 
 ## Tags
-- `fixed-files-v1` — what the bot fetches its fixed files from. Pinned so an install always gets the exact bytes that were tested.
+- `fixed-files-v2` — what the bot fetches its fixed files from. Pinned so an install always gets the exact bytes that were tested. Cut once the current change is merged; `fixed-files-v1` stays where it is for anything pinned to it.
 - `v0.1.0` and later — the published releases, one tag per marketplace version.
 
 ## Never

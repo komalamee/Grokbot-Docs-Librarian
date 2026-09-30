@@ -1,0 +1,55 @@
+{
+  "file": "index-sheet-layout-v2.json",
+  "version": "0.2",
+  "what": "Layout of the Docs Librarian index Sheet. Fetched at setup by docs-librarian-getting-started so every install builds the same Sheet. Replaces index-sheet-layout.json (v1): the date column now covers renewals, endings, expiries and paid-up-to dates, Days left is a formula, and the Renewals tab records when a date was flagged.",
+  "sheet_name": "Docs Librarian – Index",
+  "rules": [
+    "Written for a person to read first.",
+    "Row 1 is the headers and stays frozen.",
+    "Dates read as 12 Nov 2026.",
+    "A cell the document does not fill stays blank. Nothing else means 'not in the document': no dashes, no 'Not recorded', no guesses.",
+    "No ID codes, no row numbers, no backup tabs.",
+    "Set the spreadsheet timezone to the owner's when you create it, so the Days left formula counts from the right day.",
+    "The owner's own edits win."
+  ],
+  "date_format": "d mmm yyyy",
+  "renews_or_ends": [
+    "Use the date the document says the thing renews, ends or expires.",
+    "For something paid up to a date, use the last day paid for.",
+    "If one document carries several such dates, add one Renewals row per date, and keep the earliest date still in the future on the Documents row.",
+    "A date that has already passed stays on Documents and is not added to the Renewals tab.",
+    "A date the document only estimates stays blank."
+  ],
+  "tabs": [
+    {
+      "name": "Documents",
+      "note": "One row per document in your library.",
+      "freeze_rows": 1,
+      "filter": true,
+      "columns": [
+        {"header": "Name", "width": 260, "what": "What the document is called"},
+        {"header": "Type", "width": 150, "what": "Card policy, insurance, contract, tenancy, utility, subscription, other"},
+        {"header": "Provider", "width": 180, "what": "Who issued it"},
+        {"header": "Start date", "width": 120, "format": "d mmm yyyy"},
+        {"header": "Renews or ends", "width": 150, "format": "d mmm yyyy", "what": "Renewal, end of term, expiry, or the last day of a paid period"},
+        {"header": "Provider contact", "width": 240, "what": "How to reach them about the policy, a cancellation or a refund"},
+        {"header": "File link", "width": 240, "what": "The message the document came in, or the copy in Drive"}
+      ]
+    },
+    {
+      "name": "Renewals",
+      "note": "What is coming up, soonest first. Future dates only, one row per date.",
+      "freeze_rows": 1,
+      "sort": {"column": "Renews or ends", "order": "ascending"},
+      "columns": [
+        {"header": "Document", "width": 260},
+        {"header": "Provider", "width": 180},
+        {"header": "Renews or ends", "width": 150, "format": "d mmm yyyy"},
+        {"header": "Days left", "width": 100, "formula": "=C2-TODAY()", "what": "A formula, filled down the column, so it stays right between runs"},
+        {"header": "Provider contact", "width": 240},
+        {"header": "File link", "width": 240},
+        {"header": "Alerted", "width": 120, "format": "d mmm yyyy", "what": "The date this row was flagged. Blank until it is. Cleared if the date itself changes"}
+      ]
+    }
+  ]
+}

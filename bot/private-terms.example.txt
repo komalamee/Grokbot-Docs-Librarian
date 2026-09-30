@@ -1,5 +1,9 @@
 # Copy to private-terms.txt OUTSIDE the repo (or gitignore it). One term per line, case-insensitive.
 # Owner and builder names, handles, emails, home city, employer, agent IDs, Mac usernames.
+#
+# Leave out anything that is public by design, or every run will flag it:
+#   - the GitHub handle inside this bot's fixed-file URLs, which is in allow.txt instead;
+#   - the published author name, which the listing has to carry.
 owner-first-name
 owner-handle
 owner-city

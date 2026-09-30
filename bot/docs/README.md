@@ -5,4 +5,4 @@ This repository is public and holds the bot's own files. The working notes behin
 | File | What | When |
 |---|---|---|
 | `WEBSITE-HANDOFF.md` | Page copy for the bot's web page | Written once the listing is final |
-| `RETEST.md` | Pass or fail per test case, with the evidence in `../proof/` | After every round of changes, before a release |
+Test results land here too, one file per round of testing, with the evidence in `../proof/`. There are none yet.
