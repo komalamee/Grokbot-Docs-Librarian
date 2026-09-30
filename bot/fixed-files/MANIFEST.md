@@ -2,7 +2,7 @@
 
 This repository is public, so both files below are fetched at setup rather than embedded in a skill. Each URL is pinned to the tag `fixed-files-v2`, never to a branch, so an install always gets the exact bytes that were tested, and the checksum below lets anyone confirm it. The tag is separate from the bot's release tags (`v0.1.0` and later), so the fixed files and the marketplace version move independently.
 
-**`fixed-files-v2` does not exist yet.** It is cut once this change is merged. Until then the URLs return 404 and the skill falls back to the columns written out in `docs-librarian-library`.
+**The tag `fixed-files-v2` is live**, cut on commit `7e7fd80` after the fixes it carries were merged. Both URLs below return the files and match the checksums recorded here.
 
 Neither file holds personal data. The skill asks the owner before it creates anything, apart from the index Sheet itself, which is part of setup.
 
