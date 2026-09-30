@@ -1,7 +1,7 @@
 {
   "file": "folder-set.json",
-  "version": "0.1",
-  "what": "The folder set Docs Librarian creates during setup, in the storage the owner picks at message 1. Fetched at setup by docs-librarian-getting-started.",
+  "version": "0.2",
+  "what": "The folder set Docs Librarian creates in the owner's Google Drive, when they choose to copy their files there. Fetched at setup by docs-librarian-getting-started. Not used when the owner leaves their files in email: then no folders are created at all.",
   "root_folder": "Docs Librarian",
   "folders": [
     {"name": "Policies", "what": "Policies and contracts themselves"},
@@ -11,7 +11,7 @@
   "rules": [
     "Ask the owner before creating anything.",
     "Never overwrite or rename a folder that is already there; ask first.",
-    "Files stay in the owner's own storage. The index only holds the details and the link.",
+    "The index holds the details and the link. A file the owner keeps in email is never copied.",
     "Say in one line what was created and where."
   ]
 }

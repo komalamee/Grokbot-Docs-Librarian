@@ -10,4 +10,4 @@ Files the bot needs on the user's side, shipped from this repo and installed at 
 - Test on a clean install before release; keep the evidence in `proof/`.
 - **How these reach the user here:** this repository is public, so each file is fetched from it at setup, pinned to a release tag and never to a branch, with its checksum recorded in `MANIFEST.md`. An install therefore gets the exact bytes that were tested, and nothing changes under a live user until the skill points at a new tag.
 
-`sheet-layout.example.json` shows the human-first Sheet design. Copy and adapt it, or delete it if the bot has no Sheet.
+The files themselves: `index-sheet-layout-v2.json` is the Sheet the bot builds, `folder-set.json` is the Drive folder set, and `index-sheet-layout.json` is the earlier layout, kept so installs pinned to `fixed-files-v1` keep working.
