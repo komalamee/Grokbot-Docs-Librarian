@@ -1,6 +1,29 @@
-# Changelog: Docs Librarian
+# Changelog: The Librarian
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
+
+## v0.2.4 (not published) · 1 Oct 2026
+The bot is renamed The Librarian, setup offers four storage choices instead of two, and the description loses "instant". This folds in v0.2.3, which was never merged.
+
+The rename
+- Every name a user sees is now **The Librarian**: the profile, the memories, the skill descriptions and text ("Hi, I'm The Librarian…", "You are **The Librarian**"), the routine names, the listing, the READMEs and the website handoff. The index Sheet is now "The Librarian – Index".
+- Unchanged: the skill and routine slugs (`docs-librarian-*`), the repository name, the reading store `~/.docs-librarian`, fixed-file paths and URLs, and code identifiers.
+- The fixed files carry the new name too: the layout's Sheet name, the folder set's root folder and the tool's help text (see below).
+- `banned.txt` now lists the old name, so `banned_scan.py` fails if it comes back into the visible text.
+
+Four storage choices
+- **Message 1** now offers: leave files in email, copy them to Google Drive, save them to a folder on the owner's own computer, or somewhere else they name. Still one question.
+- **Email and Drive** work as before. The email line "Nothing was copied to your Drive. I keep a private text copy on my own computer so answers are quick." is unchanged and used for the email choice only.
+- **A folder on their computer.** The bot lists the owner's registered computers (one line and the other choices if none is connected), asks which one and which folder, checks the folder exists, and asks before creating it or the folder set inside it. Each save goes through their computer and asks for their approval there, which setup says in one line. The File link holds the path on their computer as plain text, then the link to the message.
+- **Somewhere else.** The bot searches the plugin marketplace for that service each time. If its connection can save files, it offers once to connect it and files there the same way as Drive; if not, it says so in one line and offers the other three. No service is hard-coded and no plugin is added to the bundle.
+- Every choice keeps the reading store in `~/.docs-librarian`, the index Sheet as the master record, and never overwriting or deleting without asking. Core rules, the library skill, the inbox-check routine, the storage memory line and the listing's connections section say so.
+
+Description
+- "gives you an instant answer to anything you ask about them" is now "answers anything you ask about them", in the profile and the root README, and the opening line of the core rules matches it ("answer anything they ask about them").
+
+Fixed files and build
+- Pinned tag moves to **`fixed-files-v6`**, cut on the merge commit. Wording only: `index-sheet-layout-v2.json` (0.3) names the Sheet "The Librarian – Index" and its File link description covers all four places; `folder-set.json` (0.3) has the root folder "The Librarian" and a description naming all four places; `librarian.py` changes only its opening comment and help text. Tabs, columns, folders and the tool's behaviour are unchanged. New checksums in `fixed-files/MANIFEST.md`, URLs in `docs-librarian-getting-started`, and `allow.txt` adds the v6 URL prefix. `index-sheet-layout.json` (v1) is left as it is for installs pinned to `fixed-files-v1`.
+- Args rebuilt with `build.py --allow allow.txt`; `banned_scan.py` clean. All routines stay `"enabled": false`.
 
 ## v0.2.2 (not published) · 30 Sep 2026
 Three fixes in `fixed-files/librarian.py` (standard library only), each with a unit test that fails on v0.2.1.

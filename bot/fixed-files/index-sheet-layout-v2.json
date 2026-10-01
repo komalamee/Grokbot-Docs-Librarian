@@ -1,8 +1,8 @@
 {
   "file": "index-sheet-layout-v2.json",
-  "version": "0.2",
-  "what": "Layout of the Docs Librarian index Sheet. Fetched at setup by docs-librarian-getting-started so every install builds the same Sheet. Replaces index-sheet-layout.json (v1): the date column now covers renewals, endings, expiries and paid-up-to dates, Days left is a formula, and the Renewals tab records when a date was flagged.",
-  "sheet_name": "Docs Librarian – Index",
+  "version": "0.3",
+  "what": "Layout of The Librarian index Sheet. Fetched at setup by docs-librarian-getting-started so every install builds the same Sheet. Replaces index-sheet-layout.json (v1): the date column now covers renewals, endings, expiries and paid-up-to dates, Days left is a formula, and the Renewals tab records when a date was flagged.",
+  "sheet_name": "The Librarian – Index",
   "rules": [
     "Written for a person to read first.",
     "Row 1 is the headers and stays frozen.",
@@ -33,7 +33,7 @@
         {"header": "Start date", "width": 120, "format": "d mmm yyyy"},
         {"header": "Renews or ends", "width": 150, "format": "d mmm yyyy", "what": "Renewal, end of term, expiry, or the last day of a paid period"},
         {"header": "Provider contact", "width": 240, "what": "How to reach them about the policy, a cancellation or a refund"},
-        {"header": "File link", "width": 240, "what": "The message the document came in, or the copy in Drive"}
+        {"header": "File link", "width": 240, "what": "The message the document came in; the copy in Drive or another service; or the path on the owner's computer, then the message link"}
       ]
     },
     {

@@ -1,6 +1,6 @@
 # Grokbot-Docs-Librarian
 
-**Docs Librarian** — a library for your contracts, policies and any long document you might need to look back at. It files them straight from your email, keeps them organised, tracks your renewals, and gives you an instant answer to anything you ask about them.
+**The Librarian** — a library for your contracts, policies and any long document you might need to look back at. It files them straight from your email, keeps them organised, tracks your renewals, and answers anything you ask about them.
 
 Live link: not published yet · Current version: none (written, not tested yet)
 

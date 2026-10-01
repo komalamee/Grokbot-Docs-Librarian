@@ -1,9 +1,9 @@
-# Listing: Docs Librarian
+# Listing: The Librarian
 
 **DRAFT: the wording still needs the owner's approval.** Nothing here is final, and nothing goes to the marketplace until the bot has been tested and the owner has said yes.
 
 ## Name
-Docs Librarian   (one spelling everywhere)
+The Librarian   (one spelling everywhere)
 
 ## One-line pitch
 A library for your contracts, policies and any long document you might need to look back at.
@@ -21,7 +21,7 @@ An inbox check for new documents (daily at 09:00 your time is the suggestion; yo
 Anyone who would rather not file things away but wants them filed, organised, and ready to be asked questions like a database.
 
 ## What it connects to
-Gmail (read access) to find your documents and spot new sign-ups, and to draft emails that only you send. Google Sheets (edit access) for the index. Google Drive (edit access) only if you want your files copied there. Google Calendar (edit access) only if you want renewal dates added. Each is offered when it's needed.
+Gmail (read access) to find your documents and spot new sign-ups, and to draft emails that only you send. Google Sheets (edit access) for the index. Google Drive (edit access) only if you want your files copied there. It can also save them to a folder on your own computer, asking your approval there each time, or to another service you name if that service's connection can save files. Google Calendar (edit access) only if you want renewal dates added. Each is offered when it's needed.
 
 It keeps a private text copy of your documents on its own computer so answers are quick and use fewer tokens. It's never shared.
 

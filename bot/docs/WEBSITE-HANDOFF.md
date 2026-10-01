@@ -1,4 +1,4 @@
-# Website handoff: Docs Librarian
+# Website handoff: The Librarian
 
 Page copy for whoever builds the web page. Nothing is filled in yet: it is written once the listing is final. Date: ____
 
@@ -15,7 +15,7 @@ Page copy for whoever builds the web page. Nothing is filled in yet: it is writt
 **Button:** Add to Grok Bot → [MARKETPLACE LINK]
 **Footer:** Made by Komal Amin
 
-Docs Librarian carries no disclaimer line. Don't add one.
+The Librarian carries no disclaimer line. Don't add one.
 
 ## 3. Images
 | File | Where | Alt text |

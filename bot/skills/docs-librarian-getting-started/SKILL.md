@@ -1,24 +1,26 @@
 ---
 name: docs-librarian-getting-started
-description: "Docs Librarian first conversation: use when the Docs Librarian bot has just been installed and is talking to its new owner for the first time, or when they say \"set me up\" or \"start again\" to Docs Librarian."
+description: "The Librarian first conversation: use when The Librarian bot has just been installed and is talking to its new owner for the first time, or when they say \"set me up\" or \"start again\" to The Librarian."
 ---
 # Getting started (first conversation)
 
 Follow `docs-librarian-core-rules`. One question per message; "skip" is always fine. The owner sees their index and a first count of real documents in your second message.
 
 ## Message 1 (word for word)
-> Hi, I'm Docs Librarian. Where should I keep your files: leave them in your email, or copy them to Google Drive?
+> Hi, I'm The Librarian. Where should I keep your files: leave them in your email, copy them to Google Drive, save them to a folder on your own computer, or somewhere else you name?
 
-Two answers are possible, and they change what you do later:
+Four answers are possible, and they change what you do later:
 * **Leave them in email.** You copy nothing and create no folders. The index holds the details and a link back to the message the document came in.
 * **Google Drive.** You copy each file into the folder set in their Drive, and the index links to the copy.
+* **A folder on their own computer.** Their Mac or PC, not the computer you run on. You save each file there through their registered computer, into the folder set inside the folder they name, and they approve file access on that computer each time.
+* **Somewhere else** they name, for example OneDrive or Dropbox. Search the plugin marketplace for that service every time; never assume which services work. If its connection can save files, offer once to connect it and file there the same way as Drive. If there is no connection or it can only read files, say so in one line and offer the other three.
 
-There is no third option. You have no way to reach files on a laptop, so never offer that.
+Whichever they pick, your reading store and the index Sheet work the same way.
 
 ## Between message 1 and message 2
 Do all of this before you write again, and don't report it step by step:
-1. If Gmail or Google Sheets isn't connected, ask for that one connection in its own message and wait. That keeps it to one question per message.
-2. Create the Sheet "Docs Librarian – Index" with the two tabs and the headers from the layout file (see "Fixed files"). Creating the index is part of setup and needs no separate ask; ask before you create anything else in the owner's Drive.
+1. If Gmail or Google Sheets isn't connected, ask for that one connection in its own message and wait. That keeps it to one question per message. If they chose a folder on their computer or another service, set that up first, one question per message (see "Folders").
+2. Create the Sheet "The Librarian – Index" with the two tabs and the headers from the layout file (see "Fixed files"). Creating the index is part of setup and needs no separate ask; ask before you create anything else in the owner's Drive.
 3. Set up the reading store on your own computer: make `~/.docs-librarian/` with permissions 700, and put `librarian.py` there (see "Fixed files"). This is yours, not theirs: it never goes in their Drive and it is never shared.
 4. Run a quick search over the **last 12 months** only, and file what you find, following `docs-librarian-library`: the Sheet row, the text copy and the card, for each document. Keep it short: this is the first result, not the full job.
 
@@ -39,11 +41,14 @@ The counts are whatever you actually filed, named by the types the index uses: c
 `docs-librarian-library` has the search, the filing and the index rows. Fill the Sheet as you go, and send one progress line per batch of about 10 documents, for example:
 > Found 6 so far: 3 insurance policies, 2 contracts, 1 card policy.
 
-## Folders (only if they chose Drive)
-Fetch the folder set and create it in their Drive after asking: policies, receipts and payments, deadlines. Never overwrite a folder that already exists; ask first. Tell them in one line what you made and where.
-
-If they chose to leave files in email, make no folders and say so in one line, word for word:
-> Nothing was copied to your Drive. I keep a private text copy on my own computer so answers are quick.
+## Folders
+Fetch the folder set: policies, receipts and payments, deadlines. Create it only after asking, never overwrite a folder that already exists (ask first), and tell them in one line what you made and where.
+* **Google Drive.** Create the folder set in their Drive.
+* **A folder on their computer.** List their registered computers. If none is connected, say so in one line and offer the other three choices. If more than one is, ask which. Then ask for the folder path. Check the folder exists; if it doesn't, ask before creating it. Then create the folder set inside it, after asking. Say in one line, word for word:
+  > Each save asks for your approval on your computer.
+* **Another service.** Once it is connected, create the folder set there, the same way as Drive.
+* **Email.** Make no folders and say so in one line, word for word:
+  > Nothing was copied to your Drive. I keep a private text copy on my own computer so answers are quick.
 
 ## End of the search: one summary
 One message, containing:
@@ -83,11 +88,11 @@ Offer it once, word for word, and never again unless they bring it up:
 Only on a yes: connect Google Calendar and add the dates. On a no, reply in one line that the dates stay in the index only.
 
 ## Fixed files
-Three small files live in this bot's public repository and are fetched at setup. Every URL is pinned to the tag `fixed-files-v5`, so what you fetch never changes under you:
-* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/index-sheet-layout-v2.json`
-* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/folder-set.json`
-* The reading-store tool: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/librarian.py`
-* The checksums of all three: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v5/bot/fixed-files/MANIFEST.md`
+Three small files live in this bot's public repository and are fetched at setup. Every URL is pinned to the tag `fixed-files-v6`, so what you fetch never changes under you:
+* Index Sheet layout (tabs, headers, order, date format): `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v6/bot/fixed-files/index-sheet-layout-v2.json`
+* Folder set: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v6/bot/fixed-files/folder-set.json`
+* The reading-store tool: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v6/bot/fixed-files/librarian.py`
+* The checksums of all three: `https://raw.githubusercontent.com/komalamee/Grokbot-Docs-Librarian/fixed-files-v6/bot/fixed-files/MANIFEST.md`
 
 Fetch each one and follow it exactly, so every install gets the same Sheet, the same folders and the same tool.
 
@@ -99,7 +104,7 @@ Fetch each one and follow it exactly, so every install gets the same Sheet, the 
 When the owner says "set me up" or "start again", nothing of theirs is thrown away and neither is the reading store:
 * Keep the Sheet and the store. Re-read the Sheet, rebuild the search index from what is already in the store (`librarian.py rebuild`), and pick up the conversation from message 1.
 * Documents in the Sheet with nothing in the store get their text and card built the next time a question needs them, not in a bulk sweep.
-* Delete text copies only if the owner asks you to. If they do, delete the store, then say in one line what you deleted and that their mail, Drive and Sheet are untouched.
+* Delete text copies only if the owner asks you to. If they do, delete the store, then say in one line what you deleted and that their mail, their filed copies and their Sheet are untouched.
 
 ## Connections
-Offer each one when the step needs it, once, and never twice: Gmail to search the inboxes they named and spot new sign-ups; Google Sheets for the index; Google Drive only if they chose to copy files there; Google Calendar only if they want renewal dates in their calendar. If they decline one, say in one line what that leaves out and carry on with the rest.
+Offer each one when the step needs it, once, and never twice: Gmail to search the inboxes they named and spot new sign-ups; Google Sheets for the index; Google Drive only if they chose to copy files there; their registered computer only if they chose a folder on it; another service only if they named it and its connection can save files; Google Calendar only if they want renewal dates in their calendar. If they decline one, say in one line what that leaves out and carry on with the rest.

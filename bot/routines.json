@@ -1,7 +1,7 @@
 [
   {
     "slug": "docs-librarian-inbox-check",
-    "name": "Docs Librarian inbox check",
+    "name": "The Librarian inbox check",
     "description": "Looks for new policies, contracts and receipts in the inboxes you named, and offers to file them.",
     "schedule": "Daily at 09:00 in the owner's timezone, or the frequency the owner picks when switching it on. Each check uses tokens.",
     "cron": "0 9 * * *",
@@ -9,11 +9,11 @@
     "enabled": false,
     "needs": ["Gmail", "Google Sheets"],
     "quiet_when": "Not switched on by the owner, nothing new in the inboxes, no connection to the inbox or the index, or paused.",
-    "job": "Follow docs-librarian-library. Check the inboxes the owner named for new sign-ups, policies, contracts and receipts since the last run, skipping marketing and anything that belongs to someone else. For each new one, ask in one line whether to save it to the library. Only after a yes: copy the file to the folder set if the owner keeps files in Drive, or record the link to the message if they keep files in email, save the text copy and write the card in the reading store, add the row to the index, then confirm in one line with the link to that row. Send nothing at all when there is nothing new."
+    "job": "Follow docs-librarian-library. Check the inboxes the owner named for new sign-ups, policies, contracts and receipts since the last run, skipping marketing and anything that belongs to someone else. For each new one, ask in one line whether to save it to the library. Only after a yes: file it the way docs-librarian-library section 2 says for the place the owner chose (email, Drive, their own computer or another service), save the text copy and write the card in the reading store, add the row to the index, then confirm in one line with the link to that row. Send nothing at all when there is nothing new."
   },
   {
     "slug": "docs-librarian-renewal-alert",
-    "name": "Docs Librarian renewal alert",
+    "name": "The Librarian renewal alert",
     "description": "Flags a renewal or expiry date once, when it is 30 days away or less, and asks whether to renew or cancel.",
     "schedule": "Daily at 09:00 in the owner's timezone; it speaks only when a date is 30 days away or less and has not been flagged yet.",
     "cron": "0 9 * * *",
@@ -25,7 +25,7 @@
   },
   {
     "slug": "docs-librarian-monthly-look-ahead",
-    "name": "Docs Librarian monthly look-ahead",
+    "name": "The Librarian monthly look-ahead",
     "description": "A short look at the renewals and expiry dates coming up in the month ahead.",
     "schedule": "On the 1st of the month at 09:00 in the owner's timezone.",
     "cron": "0 9 1 * *",

@@ -1,8 +1,8 @@
 {
   "file": "folder-set.json",
-  "version": "0.2",
-  "what": "The folder set Docs Librarian creates in the owner's Google Drive, when they choose to copy their files there. Fetched at setup by docs-librarian-getting-started. Not used when the owner leaves their files in email: then no folders are created at all.",
-  "root_folder": "Docs Librarian",
+  "version": "0.3",
+  "what": "The folder set The Librarian creates where the owner chose to copy their files: their Google Drive, a folder they name on their own computer, or another service they connected. Fetched at setup by docs-librarian-getting-started. Not used when the owner leaves their files in email: then no folders are created at all.",
+  "root_folder": "The Librarian",
   "folders": [
     {"name": "Policies", "what": "Policies and contracts themselves"},
     {"name": "Receipts and payments", "what": "Receipts and payment records for each provider"},
