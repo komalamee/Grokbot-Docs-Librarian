@@ -1,6 +1,6 @@
 ---
 name: docs-librarian-renewals
-description: "Docs Librarian renewals: use when a Docs Librarian owner asks about a renewal or an expiry date, when they ask about cancelling, and when the Docs Librarian renewal alert or monthly look-ahead routine runs."
+description: "The Librarian renewals: use when the owner of The Librarian asks about a renewal or an expiry date, when they ask about cancelling, and when The Librarian renewal alert or monthly look-ahead routine runs."
 ---
 # Renewals
 

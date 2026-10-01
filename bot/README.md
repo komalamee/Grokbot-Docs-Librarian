@@ -1,4 +1,4 @@
-# Docs Librarian (Grok Bot template)
+# The Librarian (Grok Bot template)
 
 A library for your contracts, policies and any long document you might need to look back at · Live link: not published yet · Current version: none (written, not tested yet)
 

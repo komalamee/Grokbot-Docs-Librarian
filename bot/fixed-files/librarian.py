@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Docs Librarian reading store: a private text copy of the owner's documents, searchable locally.
+"""The Librarian reading store: a private text copy of the owner's documents, searchable locally.
 
   librarian.py add --id ID --file PATH [--name N] [--type T] [--provider P] [--start D] [--ends D]
                    [--link URL] [--card PATH]
@@ -11,7 +11,7 @@
 
 Store: $DOCS_LIBRARIAN_HOME, or ~/.docs-librarian, created mode 700. It holds text/<id>.txt,
 cards/<id>.md, catalog.jsonl and index.db (SQLite FTS5, ranked with BM25). It is a cache and
-nothing else: the owner's mail, their Drive and their Sheet stay the record. Nothing in it is
+nothing else: the owner's mail, their filed copies and their Sheet stay the record. Nothing in it is
 shared, uploaded or committed, and it is deleted only when the owner asks.
 
 Standard library only: sqlite3, subprocess (pdftotext), zipfile (.docx).
@@ -286,7 +286,7 @@ def cmd_rebuild(a) -> int:
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Docs Librarian reading store")
+    ap = argparse.ArgumentParser(description="The Librarian reading store")
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("add", "index"):
         p = sub.add_parser(name)

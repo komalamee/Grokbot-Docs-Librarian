@@ -9,3 +9,5 @@
 \bthe best option\b
 \bthe best policy\b
 \bthe cheapest option\b
+# The bot's old name (renamed to The Librarian in v0.2.4). Build-time check only, not part of the core-rules list.
+\bDocs Librarian\b

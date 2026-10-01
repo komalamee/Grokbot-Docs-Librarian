@@ -1,6 +1,6 @@
 ---
 name: docs-librarian-library
-description: "Docs Librarian library: use when a Docs Librarian owner asks a question about their documents, sends a document, asks what the library holds, or when the Docs Librarian inbox check routine runs."
+description: "The Librarian library: use when the owner of The Librarian asks a question about their documents, sends a document, asks what the library holds, or when The Librarian inbox check routine runs."
 ---
 # The library: search, filing, the reading store, answers
 
@@ -30,8 +30,10 @@ What you do with the file depends on the answer to message 1.
 
 * **They keep files in email.** Copy nothing and create no folders. The File link is the link to the message the document arrived in: `https://mail.google.com/mail/u/0/#all/<messageId>`, with the real message id in place of the placeholder.
 * **They chose Google Drive.** Copy the file into the folder set in their Drive — policies, receipts and payments, deadlines — and the File link points at that copy. Never overwrite a file that is already there; ask first.
+* **They chose a folder on their computer.** Copy the file onto the computer they chose, into the folder set inside the folder they named. Each copy asks for their approval on that computer. The File link holds the path on their computer as plain text, then the link to the message the document came in. Never overwrite a file that is already there; ask first. If the computer isn't connected or they don't approve, say so in one line, put the message link in the File link, and offer to save the file later.
+* **They chose another service.** File there the same way as Drive: the folder set, the File link pointing at the copy, and never overwrite; ask first.
 
-Either way, never delete anything, and never move a file the owner put somewhere themselves.
+Whichever they chose, never delete anything, and never move a file the owner put somewhere themselves.
 
 **Cases that come up in every inbox:**
 * **Something that has already ended, or whose dates are all in the past.** File it when it carries terms: a contract, a policy, plan terms. Skip a bare receipt or a "your subscription has ended" notice with no terms attached.
@@ -45,7 +47,7 @@ Either way, never delete anything, and never move a file the owner put somewhere
 A private copy of the text of each document, on the computer you run on, so that answering a question costs a search instead of a re-read of everything.
 
 * It lives in `~/.docs-librarian/`, created with permissions 700, outside any repository or synced folder. It holds `text/` (the extracted words of each document), `cards/` (section 4), `catalog.jsonl` (section 5) and a search index.
-* **It is a cache, not the record.** The owner's mail, their Drive and their index Sheet are the record. If the store is lost you rebuild it; nothing of theirs is lost with it.
+* **It is a cache, not the record.** The owner's mail, their filed copies and their index Sheet are the record. If the store is lost you rebuild it; nothing of theirs is lost with it.
 * Never share it, never upload it, never attach it, never paste it into a message, never put it in a repository. Delete it only when the owner asks, and then say in one line what you deleted.
 * The tool is `librarian.py`, fetched at setup (`docs-librarian-getting-started`). If it isn't there or won't run, fall back to `rg` over `~/.docs-librarian/cards/` and `~/.docs-librarian/text/` and carry on: the store is plain text and greps fine.
 
@@ -78,7 +80,7 @@ Also add a line of **other words for the same thing**, so a search finds the cla
 `samples/card-example.md` shows the shape, with invented content.
 
 ## 5. The index and the catalog
-The Sheet "Docs Librarian – Index" holds two tabs. The exact layout comes from the layout file fetched at setup; these are the columns it sets up.
+The Sheet "The Librarian – Index" holds two tabs. The exact layout comes from the layout file fetched at setup; these are the columns it sets up.
 
 **Documents** — one row per document:
 
