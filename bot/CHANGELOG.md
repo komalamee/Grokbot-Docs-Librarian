@@ -2,7 +2,10 @@
 
 One entry per version. Repo tag = marketplace card version. Add the listing URL once the bot is published.
 
-## v0.2.4 (not published) · 1 Oct 2026
+## Listing copy · 3 Oct 2026 (no version change)
+- The first "What it does" headline in `listing/LISTING.md` is now "Files straight from your email." instead of "Instant filing from your email." Listing copy only: no skill, profile, routine or args change.
+
+## v0.2.4 (published 1 Oct 2026, marketplace version 3) · https://x.ai/bot/ox-cXp4RA3S_O8dK3DNih
 The bot is renamed The Librarian, setup offers four storage choices instead of two, and the description loses "instant". This folds in v0.2.3, which was never merged.
 
 The rename

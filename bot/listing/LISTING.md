@@ -9,7 +9,7 @@ The Librarian   (one spelling everywhere)
 A library for your contracts, policies and any long document you might need to look back at.
 
 ## What it does
-- **Instant filing from your email.** It finds your contracts, policies and long documents and files them as they arrive.
+- **Files straight from your email.** It finds your contracts, policies and long documents and files them as they arrive.
 - **Indexing.** It keeps a catalog of everything it has filed, with the type, provider, key dates and a link back to each one, in a Google Sheet you own.
 - **Tracks your renewals.** When something is 30 days or less from renewing or ending, it tells you once and asks whether you want to renew or cancel.
 - **Answers from your documents.** Ask what a policy or contract says, and you get the answer with the exact clause quoted and a link to the document.
